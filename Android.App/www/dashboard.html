@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+
+    <meta name="keywords" content="Fuel Rejetion App" />
+    <meta name="description" content="Fuel Rejetion App">
+    <meta name="author" content="MiglaniSoftwareServices">
+
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://apitest.eco2cift.co.uk">-->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/skin/default_skin/css/theme.css">
+
+    <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/admin-tools/admin-forms/css/admin-forms.min.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="theme/assets/img/favicon.ico">
+
+    <style>
+        .row-recent-search {
+            cursor: pointer;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+        /* DivTable.com */
+
+    </style>
+
+</head>
+
+<body class="ecommerce-page">
+    <!-- Start: Main -->
+    <div id="main">
+        <!-- Start: Content-Wrapper -->
+        <section id="content_wrapper">
+
+            <!-- Start: Topbar -->
+            <header id="topbar" class="ph10">
+                <div class="topbar-left">
+                    <ul class="nav nav-list nav-list-topbar pull-left">
+                        <li class="active" id="dashboardAnchor">
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li id="editedAnchor">
+                            <a href="#">Edited <span id="lblEditedBadge" class="badge badge-hero badge-danger">0</span></a>
+                        </li>
+                        <li id="notifiedAnchor">
+                            <a href="#">Notified <span id="lblNotifiedBadge" class="badge badge-hero badge-danger">0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <!-- End: Topbar -->
+            <!-- Begin: Content -->
+            <section id="content" class="table-layout animated fadeIn">
+                <!-- begin: .tray-center -->
+                <!-- dashboard tiles -->
+                <div class="row">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="panel panel-tile text-center br-a br-grey">
+                            <div class="input-group input-hero input-hero-sm">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="number" id="txtSearch" class="form-control" style="padding-left:15%" placeholder="Enter Sample Id">
+                                <br />
+                                <button id="btnSearch" class="button btn-primary" style="width:100%; font-size:15px; height:50px">Search</button>
+                            </div>
+
+                        </div>
+                    </div>
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="panel panel-tile text-center br-a br-grey">
+                                <div class="input-group input-hero input-hero-sm">
+                                    <button id="btnNonLoadEntry" class="button btn-primary" style="width:100%; font-size:15px; height:50px">Non Load Entry</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- end: .tray-center -->
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="panel panel-info panel-border">
+                            <div class="panel-body bg-light p10">
+                                <div class="list-group list-group-links list-group-spacing-sm mbn">
+
+                                    <center>
+                                        <h4> User - <small><span id="lblUser" style="color:steelblue">{User EmailId}</span></small> </h4>
+                                        <hr />
+                                        <table>
+                                            <tr>
+                                                <td style="width:30px">
+                                                    <i class="fa fa-exclamation-circle text-warning fa-lg pr10"></i>
+                                                </td>
+                                                <td>
+                                                    <b>Site</b> : <span id="lblFullName">{User Full Name}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-exclamation-circle text-warning fa-lg pr10"></i>
+                                                </td>
+                                                <td>
+                                                    <b>App Version</b> : 1.02
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-exclamation-circle text-warning fa-lg pr10"></i>
+                                                </td>
+                                                <td>
+                                                    <b>Build</b> # 06082019
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-exclamation-circle text-warning fa-lg pr10"></i>
+                                                </td>
+                                                <td>
+                                                    <b> Last Sync </b>: <span id="lblLastSync">{Last Synced}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- End: Content -->
+        </section>
+
+        <div class="footer">
+            <button class="button btn btn-system active" style="width:100%" id="btnRefresh">Refresh Loads</button>
+        </div>
+
+    </div>
+    <!-- End: Main -->
+    <!-- BEGIN: PAGE SCRIPTS -->
+    <!-- jQuery -->
+    <script src="theme/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script src="theme/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+
+    <!-- Theme Javascript -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/sync.js"></script>
+    <script src="scripts/models.js"></script>
+    <script type="text/javascript" src="scripts/dashboard.js"></script>
+
+</body>
+
+</html>

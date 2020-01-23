@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <title>Fuel Rejection App</title>
+    <meta name="keywords" content="Fuel Rejetion App" />
+    <meta name="description" content="Fuel Rejetion App">
+    <meta name="author" content="MiglaniSoftwareServices">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/skin/default_skin/css/theme.css">
+
+    <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/admin-tools/admin-forms/css/admin-forms.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="theme/assets/img/favicon.ico">
+
+    <style>
+        .admin-form .checkbox {
+            width: 100%;
+            border: 1px solid #DDD;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+
+<body class="admin-elements-page" data-spy="scroll" data-target="#nav-spy" data-offset="300">
+
+    <!-- Start: Main -->
+    <div id="main">
+
+        <!-- Start: Content-Wrapper -->
+        <section id="content_wrapper" style="margin-left: 1px;">
+            <!-- Begin: Content -->
+            <section id="content" class="table-layout animated fadeIn">
+
+                <!-- begin: .tray-center -->
+                <div class="tray tray-center">
+
+                    <div class="center-block">
+
+                        <!-- Begin: Content Header -->
+                        <div class="content-header">
+                            <h1> <b><span id="lblFlowId">{Flow Id}</span></b></h1>
+                        </div>
+
+                        <!-- Begin: Admin Form -->
+                        <div class="admin-form">
+
+                            <div class="panel heading-border">
+                                <div class="panel-body bg-light">
+                                    <div class="section-divider mb40" id="spy1">
+                                        <span>Edit Flow</span>
+                                    </div>
+                                    <!-- .section-divider -->
+                                    <!-- Basic Inputs -->
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="plannedDeliveryDate" class="field-label text-muted fs15 mb10"> Planned Delivery Date</label>
+                                                <label class="field">
+                                                    <input type="text" name="plannedDeliveryDate" id="plannedDeliveryDate" class="gui-input" readonly>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="haulier" class="field-label text-muted fs15 mb10"> Haulier </label>
+                                                <label class="field">
+                                                    <input type="text" name="haulier" id="haulier" class="gui-input" readonly>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="subHaulier" class="field-label text-muted fs15 mb10"> Sub Haulier</label>
+                                                <label class="field select">
+                                                    <select id="subHaulier" name="subHaulier"></select>
+                                                    <i class="arrow double"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="regNo" class="field-label text-muted fs15 mb10"> Reg No.*</label>
+                                                <label class="field">
+                                                    <input type="text" name="regNo" id="regNo" class="gui-input">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="operatorName" class="field-label text-muted fs15 mb10"> Operator Name</label>
+                                                <label class="field">
+                                                    <input type="text" name="operatorName" id="operatorName" class="gui-input">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="fuelType" class="field-label text-muted fs15 mb10"> Fuel Type</label>
+                                                <label class="field">
+                                                    <input type="text" name="fuelType" id="fuelType" class="gui-input" readonly>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="fuelSize" class="field-label text-muted fs15 mb10"> Fuel Size*</label>
+                                                <label class="field">
+                                                    <input type="text" name="fuelSize" id="fuelSize" class="gui-input" readonly>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="rejected" class="field-label text-muted fs15 mb10"> Rejected*</label>
+                                                <label class="field">
+                                                    <input type="number" name="rejected" id="rejected" class="gui-input">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="accepted" class="field-label text-muted fs15 mb10"> Accepted*</label>
+                                                <label class="field">
+                                                    <input type="number" name="accepted" id="accepted" class="gui-input">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="rejectedReasons" class="field-label text-muted fs15 mb10"> Rejected Reasons*</label>
+                                                <select id="rejectedReasons" multiple="multiple">
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="baleLocations" class="field-label text-muted fs15 mb10"> Bale Locations*</label>
+                                                <select id="baleLocations" multiple="multiple">
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <label for="comments" class="field-label text-muted fs15 mb10"> Comments</label>
+                                                <label class="field prepend-icon">
+                                                    <textarea class="gui-textarea" id="comments" name="comments" placeholder="Enter comments"></textarea>
+                                                    <label for="comments" class="field-icon">
+                                                        <i class="fa fa-comments"></i>
+                                                    </label>
+                                                    <span class="input-footer">
+                                                        <strong>Hint:</strong>Don't be negative or off topic! just be awesome...
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <button id="btnPic1" class="btn btn-primary" style="width:100%">Took Pic-1</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic1" />
+                                                <input type="hidden" id="hfPic1" />
+                                                <p id="lblPic1"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <button id="btnPic2" class="btn btn-primary" style="width:100%">Took Pic-2</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic2" />
+                                                <input type="hidden" id="hfPic2" />
+                                                <p id="lblPic2"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <button id="btnPic3" class="btn btn-primary" style="width:100%">Took Pic-3</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic3" />
+                                                <input type="hidden" id="hfPic3" />
+                                                <p id="lblPic3"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <button id="btnPic4" class="btn btn-primary" style="width:100%">Took Pic-4</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic4" />
+                                                <input type="hidden" id="hfPic4" />
+                                                <p id="lblPic4"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <button id="btnPic5" class="btn btn-primary" style="width:100%">Took Pic-5</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic5" />
+                                                <input type="hidden" id="hfPic5" />
+                                                <p id="lblPic5"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end: .tray-center -->
+            </section>
+            <!-- End: Content -->
+
+        </section>
+
+        <div class="footer">
+            <button class="button btn btn-alert active" style="width:100%" id="btnSave">Save Data</button>
+        </div>
+
+    </div>
+    <!-- End: Main -->
+    
+    <!-- BEGIN: PAGE SCRIPTS -->
+    <script src="theme/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script src="theme/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+    <!-- Select2 Plugin Plugin -->
+    <!--<script src="theme/vendor/plugins/select2/select2.min.js"></script>-->
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <!--<script type="text/javascript" src="scripts/platformOverrides.js"></script>-->
+    <!-- Theme Javascript -->
+    <!--<script src="theme/assets/js/utility/utility.js"></script>
+    <script src="theme/assets/js/demo/demo.js"></script>
+    <script src="theme/assets/js/main.js"></script>-->
+    <!--<script src="scripts/editFlowNative.js"></script>-->    
+    <script src="scripts/editflow2.js"></script>
+    <!-- END: PAGE SCRIPTS -->
+
+</body>
+
+</html>

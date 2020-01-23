@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <!-- Font CSS (Via CDN) -->
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/skin/default_skin/css/theme.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="theme/assets/img/favicon.ico">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+     <![endif]-->
+    <style>
+        label {
+            font-size: 12px;
+        }
+
+        .footer {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        .sticky {
+            position: inherit;
+            top: 0;
+            width: 100%
+        }
+    </style>
+
+</head>
+
+<body class="external-page external-alt sb-l-c sb-r-c">
+
+    <!-- Start: Main -->
+    <div id="main" class="animated fadeIn">
+
+        <!-- Start: Content-Wrapper -->
+        <section id="content_wrapper">
+
+            <!-- Begin: Content -->
+            <section id="content">
+                <div class="alert alert-danger alert-dismissable" id="dvWarning">
+                    <!--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
+                    <i class="fa fa-remove pr10"></i>
+                    <strong>
+                        Warning: You can't edit this flow.
+                    </strong>
+                    <br>
+                    it is already in the "Notified List"!
+                </div>
+
+                <div class="center-block">
+
+                    <!-- Login Logo + Meta -->
+                    <div class="row table-layout">
+                        <center>
+                            <h2 class="text-dark mbn confirmation-header"><span class="glyphicon glyphicon-fire"></span> <span id="lblSampleId">{SampleID}</span> </h2>
+                        </center>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mt20">
+                            <div class="panel">
+                                <div class="panel-heading" style="padding-top:5px">
+                                    <span class="panel-icon">
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                    <span class="panel-title"> Details</span>
+                                </div>
+                                <div class="panel-body pn">
+                                    <table class="table mbn tc-icon-1 tc-med-2 tc-bold-last">
+                                        <thead>
+                                            <tr class="hidden">
+                                                <!--<th class="mw30">#</th>-->
+                                                <th>First Name</th>
+                                                <th>Revenue</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <!--<td >
+                                                    <i class="fa fa-calendar"></i>
+                                                </td>-->
+                                                <td style="width:45%; text-align:left"><label>Planned Delivery Date</label> </td>
+                                                <td>
+                                                    <label id="lblDeliveryDate">{DeliveryDate}</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <!--<td>
+                                                    <span class="fa fa-columns"></span>
+                                                </td>-->
+                                                <td style="text-align:left"><label>LT Number</label></td>
+                                                <td>
+                                                    <label id="lblLtNumber">{LtNumber}</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <!--<td>
+                                                    <i class="fa fa-truck"></i>
+                                                </td>-->
+                                                <td style="text-align:left"><label>Haulier</label></td>
+                                                <td>
+                                                    <label id="lblHaulier">{Haulier}</label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <!--<td>
+                                                    <i class="fa fa-book"></i>
+                                                </td>-->
+                                                <td style="text-align:left"><label>RegNo*</label></td>
+                                                <td>
+                                                    <label id="lblRegNo">{RegNo}</label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <!--<td>
+                                                    <i class="fa fa-user"></i>
+                                                </td>-->
+                                                <td style="text-align:left"><label>Operator Name</label></td>
+                                                <td>
+                                                    <label id="lblOperatorName">{OperatorName}</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <!--<td>
+                                                    <i class="fa fa-bolt"></i>
+                                                </td>-->
+                                                <td style="text-align:left"><label>Note</label></td>
+                                                <td>
+                                                    <label id="lblNote">{Note}</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <!--<td>
+                                                    <i class="fa fa-crop"></i>
+                                                </td>-->
+                                                <td style="text-align:left"><label>Source</label></td>
+                                                <td>
+                                                    <label id="lblSource">{Source}</label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <!--<td>
+                                                    <i class="fa fa-tasks"></i>
+                                                </td>-->
+                                                <td style="text-align:left"><label>Rejection Reasons</label></td>
+                                                <td>
+                                                    <label id="lblRejectionReasons">{RejectionReasons}</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <!--<td>
+                                                    <i class="fa fa-comments"></i>
+                                                </td>-->
+                                                <td style="text-align:left"><label>Comments </label></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="text-align:left; font-size:12px">
+                                                    <label id="lblComments">{Comments}</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- End: Content -->
+        </section>
+        <!-- End: Content-Wrapper -->
+        <div class="footer">
+            <button class="button btn btn-warning" style="width:100%" id="btnEdit">Edit Data</button>
+        </div>
+
+    </div>
+    <!-- End: Main -->
+    <!-- BEGIN: PAGE SCRIPTS -->
+    <!-- jQuery -->
+    <script src="theme/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script src="theme/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+
+    <!-- Theme Javascript -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <!--<script type="text/javascript" src="scripts/platformOverrides.js"></script>-->
+    <script src="scripts/models.js"></script>
+    <script type="text/javascript" src="scripts/flow.js"></script>
+
+
+
+    <!-- END: PAGE SCRIPTS -->
+
+</body>
+
+</html>

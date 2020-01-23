@@ -1,0 +1,24 @@
+{
+  "name": "cordova-plugin-restful",
+  "version": "0.0.4",
+  "description": "Use RESTful api with your cordova, ionic project",
+  "cordova": {
+    "id": "cordova-plugin-restful",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yajuve/cordova-plugin-RESTful.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "RESTful",
+    "api"
+  ],
+  "author": "K.Mohamed Raouf",
+  "license": "MIT",
+  "homepage": "https://github.com/yajuve/cordova-plugin-restful.git#readme"
+}

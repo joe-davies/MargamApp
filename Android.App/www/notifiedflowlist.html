@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <title>Fuel Rejection App</title>
+    <meta name="keywords" content="Fuel Rejetion App" />
+    <meta name="description" content="Fuel Rejetion App">
+    <meta name="author" content="MiglaniSoftwareServices">
+
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/skin/default_skin/css/theme.css">
+
+    <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/admin-tools/admin-forms/css/admin-forms.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="theme/assets/img/favicon.ico">
+
+    <style>
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+
+<body class="form-inputs-page">
+
+
+    <!-- Start: Main -->
+    <div id="main">
+
+        <!-- Start: Header -->
+        <header id="topbar" class="ph10">
+            <div class="topbar-left">
+                <ul class="nav nav-list nav-list-topbar pull-left">
+                    <li id="dashboardAnchor">
+                        <a href="#" >Dashboard</a>
+                    </li>
+                    <li id="editedAnchor">
+                        <a href="#" >Edited <span id="lblEditedBadge" class="badge badge-hero badge-danger">0</span></a>
+                    </li>
+                    <li class="active" id="notifiedAnchor">
+                        <a href="#" >Notified <span id="lblNotifiedBadge" class="badge badge-hero badge-danger">0</span></a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <!-- End: Header -->
+        <!-- Start: Content-Wrapper -->
+        <section id="content_wrapper">
+
+            <!-- Begin: Content -->
+            <div id="content" class="animated fadeIn">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel">
+                            <table id="tbl_notifiedflow" class="table tc-checkbox-1 admin-form theme-warning br-t">
+                                <thead>
+                                    <tr class="">
+                                        <!--<th class="text-center">Select</th>-->
+                                        <th class="">Sample Id</th>
+                                        <th> Haulier</th>
+                                        <th> Date </th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="dvFlowJson">
+
+                </div>
+            </div>
+            <!-- End: Content -->
+
+        </section>
+        <!-- End: Content-Wrapper -->
+        <div class="footer">
+            <button class="button btn btn-alert active" style="width:100%" id="btnRefreshNotification">Refresh Notification</button>
+        </div>
+
+    </div>
+
+    
+    <!-- End: Main -->
+    <!-- jQuery -->
+
+    <script src="theme/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <!--<script src="theme/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>-->
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+
+    <!-- Theme Javascript -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <!--<script type="text/javascript" src="scripts/sync.js"></script>-->
+    <script src="scripts/models.js"></script>
+    <script src="scripts/sync.js"></script>
+    <script type="text/javascript" src="scripts/notifiesflowlist.js"></script>
+</body>
+
+</html>

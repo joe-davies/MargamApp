@@ -1,0 +1,857 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <title>Fuel Rejection App</title>
+    <meta name="keywords" content="Fuel Rejetion App" />
+    <meta name="description" content="Fuel Rejetion App">
+    <meta name="author" content="MiglaniSoftwareServices">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/skin/default_skin/css/theme.css">
+
+    <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/admin-tools/admin-forms/css/admin-forms.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="theme/assets/img/favicon.ico">
+
+    <style>
+        /*table, th, td {
+            border: 1px solid Black;
+        }*/
+
+        /* make the table a 100% wide by default */
+        table {
+            width: 100%;
+        }       
+
+        /* if the browser window is at least 800px-s wide: */
+        @media screen and (min-width: 800px) {
+            table {
+                width: 90%;
+            }
+        }
+
+        /* if the browser window is at least 1000px-s wide: */
+        @media screen and (min-width: 1000px) {
+            table {
+                width: 80%;
+            }
+        }
+
+        .tdBale {
+            background-color: goldenrod;
+            width: 13%;
+            padding: 15px 25px;
+            outline: none;
+            color: #fff;
+            /*border: none;*/
+            border-radius: 6px;
+            box-shadow: 0 6px #999;
+        }
+
+            .tdBale:active {
+                background-color: darkred;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+        .admin-form .checkbox {
+            width: 100%;
+            border: 1px solid #DDD;
+        }
+
+        .footer {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        .imgbtn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);           
+            padding: 12px 24px;
+            border: none;            
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body class="admin-elements-page" data-spy="scroll" data-target="#nav-spy" data-offset="300">
+
+    <!-- Start: Main -->
+    <div id="main">
+
+        <!-- Start: Content-Wrapper -->
+        <section id="content_wrapper" style="margin-left: 1px;">
+            <!-- Begin: Content -->
+            <section id="content" class="table-layout animated fadeIn">
+
+                <!-- begin: .tray-center -->
+                <div class="tray tray-center">
+
+                    <div class="center-block">
+                        <!--style="margin-top: -5%;"-->
+                        <!-- Begin: Content Header -->
+                        <div class="content-header">
+                            <h1> <b><span id="lblSampleId">{Sample Id}</span></b></h1>
+                        </div>
+
+                        <!-- Begin: Admin Form -->
+                        <div class="admin-form">
+                            <!--style="margin-top: -4%;"-->
+
+                            <div class="panel heading-border">
+                                <div class="panel-body bg-light">
+                                    <div class="section-divider mb40" id="spy1">
+                                        <span>Edit Load Entry</span>
+                                    </div>
+                                    <!-- .section-divider -->
+                                    <table id="tblOuter" style="table-layout:fixed" class="table-responsive">
+                                        <tr style="margin-top:5%">
+                                            <td style="width:35%">
+                                                Planned Deliveries Date
+                                            </td>
+                                            <td style="width:65%">
+                                                <input type="text" name="plannedDeliveryDate" id="plannedDeliveryDate" class="gui-input" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:35%">
+                                                LT Number
+                                            </td>
+                                            <td style="width:65%">
+                                                <input type="text" name="ltNumber" id="ltNumber" class="gui-input" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        <tr style="margin-top:5%">
+                                            <td style="width:35%">
+                                                Haulier
+                                            </td>
+                                            <td style="width:65%">
+                                                <input type="text" name="haulier" id="haulier" class="gui-input" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:35%">
+                                                Sub Haulier
+                                            </td>
+                                            <td style="width:65%">
+                                                <input type="text" name="subHaulier" id="subHaulier" class="gui-input" readonly>
+                                                <!--<select id="subHaulier" name="subHaulier" class="form-control"></select>-->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:35%">
+                                                Reg No.*
+                                            </td>
+                                            <td style="width:65%">
+                                                <input type="text" name="regNo" id="regNo" class="gui-input" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="width:35%">
+                                                Note
+                                            </td>
+                                            <td style="width:65%">
+                                                <input type="text" name="note" id="note" class="gui-input" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td style="width:35%">
+                                                Operator Name
+                                            </td>
+                                            <td style="width:65%">
+                                                <!--<input type="text" name="operatorName" id="operatorName" class="gui-input">-->
+                                                <select id="operatorName" name="operatorName" class="form-control"></select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        <!--<tr>
+            <td style="width:35%">
+                Fuel Type
+            </td>
+            <td style="width:65%">
+                <input type="text" name="fuelType" id="fuelType" class="gui-input" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width:35%">
+                Fuel Size*
+            </td>
+            <td style="width:65%">
+                <input type="text" name="fuelSize" id="fuelSize" class="gui-input" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+                                            <tr>
+                                                <td style="width:35%">
+                                                    Rejected*
+                                                </td>
+                                                <td style="width:65%">
+                                                    <input type="tel" name="rejected" id="rejected" class="gui-input">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:35%">
+                                                    Accepted*
+                                                </td>
+                                                <td style="width:65%">
+                                                    <input type="tel" name="accepted" id="accepted" class="gui-input">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">&nbsp;</td>
+                                            </tr>-->
+                                        <tr>
+                                            <td style="width:35%">
+                                                Rejected Reasons*
+                                            </td>
+                                            <td style="width:65%">
+                                                <select id="multiRejectedReasons" multiple="multiple"></select>
+                                                <select id="rejectionReason" name="rejectionReason" class="form-control"></select>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        <!--<tr class="rowMoisture">
+            <td style="width:35%">
+                Moisture
+            </td>
+            <td style="width:65%">
+                <input type="number" name="moisture" id="moisture" class="gui-input">
+            </td>
+        </tr>
+        <tr class="rowMoisture">
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr class="rowBaleLocation">
+            <td style="text-align:left">
+                Bale Locations*
+            </td>
+        </tr>
+        <tr class="rowBaleLocation">
+            <td colspan="2" style="width:100%">
+                <div style="width:inherit">
+                    <table border="1" style="width:100%; table-layout:fixed">
+                        <tbody>
+                            <tr>
+                                <td rowspan="6" class="tdNearSide" style="background-color:whitesmoke; width:10%; text-align:center"> Near Side</td>
+                                <td></td>
+                                <td style="text-align:center">A</td>
+                                <td style="text-align:center">B</td>
+                                <td style="text-align:center">C</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align:center">D</td>
+                                <td style="text-align:center">E</td>
+                                <td style="text-align:center">F</td>
+                            </tr>
+                            <tr class="trBaleLayer5">
+                                <td> &nbsp;</td>
+                                <td class="tdBale" id="N5A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N5B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N5C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">5</td>
+                                <td class="tdBale" id="N5D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N5E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N5F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                            </tr>
+                            <tr class="trBaleLayer4">
+                                <td> &nbsp;</td>
+                                <td class="tdBale" id="N4A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N4B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N4C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">4</td>
+                                <td class="tdBale" id="N4D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N4E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N4F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" style="background-color:lightgrey; width:5%"> CAB </td>
+                                <td class="tdBale" id="N3A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N3B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N3C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">3</td>
+                                <td class="tdBale" id="N3D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N3E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N3F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdBale" id="N2A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N2B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N2C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">2</td>
+                                <td class="tdBale" id="N2D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N2E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N2F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdBale" id="N1A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N1B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N1C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">1</td>
+                                <td class="tdBale" id="N1D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N1E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="N1F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table border="1" style="width:100%; table-layout:fixed">
+                        <tbody>
+                            <tr>
+                                <td rowspan="6" class="tdOffSide" style="background-color:whitesmoke; width:10%; text-align:center"> Off Side</td>
+                                <td style="text-align:center">F</td>
+                                <td style="text-align:center">E</td>
+                                <td style="text-align:center">D</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align:center">C</td>
+                                <td style="text-align:center">B</td>
+                                <td style="text-align:center">A</td>
+                                <td></td>
+                            </tr>
+
+                            <tr class="trBaleLayer5">
+                                <td class="tdBale" id="O5F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O5E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O5D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">5</td>
+                                <td class="tdBale" id="O5C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O5B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O5A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td rowspan="2"> &nbsp;</td>
+                            </tr>
+                            <tr class="trBaleLayer4">
+                                <td class="tdBale" id="O4F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O4E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O4D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">4</td>
+                                <td class="tdBale" id="O4C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O4B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O4A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdBale" id="O3F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O3E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O3D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">3</td>
+                                <td class="tdBale" id="O3C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O3B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O3A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td rowspan="3" style="background-color:lightgrey; width:5%"> CAB </td>
+                            </tr>
+                            <tr>
+                                <td class="tdBale" id="O2F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O2E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O2D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">2</td>
+                                <td class="tdBale" id="O2C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O2B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O2A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdBale" id="O1F">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O1E">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O1D">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td style="text-align:center; width:7%">1</td>
+                                <td class="tdBale" id="O1C">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O1B">
+                                    <input type="hidden" value="0" />
+                                </td>
+                                <td class="tdBale" id="O1A">
+                                    <input type="hidden" value="0" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>-->
+                                        <tr>
+                                            <td style="text-align:left">
+                                                Comments
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="width:100%">
+                                                <textarea class="gui-textarea" id="comments" name="comments" placeholder="Enter comments"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+
+                                    </table>
+
+
+                                    <!-- Basic Inputs -->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="plannedDeliveryDate" class="field-label text-muted fs15 mb10"> Planned Delivery Date</label>
+                <label class="field">
+                    <input type="text" name="plannedDeliveryDate" id="plannedDeliveryDate" class="gui-input" readonly>
+                </label>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="haulier" class="field-label text-muted fs15 mb10"> Haulier </label>
+                <label class="field">
+                    <input type="text" name="haulier" id="haulier" class="gui-input" readonly>
+                </label>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="subHaulier" class="field-label text-muted fs15 mb10"> Sub Haulier</label>
+                <select id="subHaulier" name="subHaulier" class="form-control"></select>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="regNo" class="field-label text-muted fs15 mb10"> Reg No.*</label>
+                <label class="field">
+                    <input type="text" name="regNo" id="regNo" class="gui-input">
+                </label>
+                <div class="section-divider mv40" id="spy2">
+                    <span> OR </span>
+                </div>
+                <select id="ddlRegNo" name="regNo" class="form-control"></select>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="operatorName" class="field-label text-muted fs15 mb10"> Operator Name</label>
+                <label class="field">
+                    <input type="text" name="operatorName" id="operatorName" class="gui-input">
+                </label>
+                <div class="section-divider mv40" id="spy2">
+                    <span> OR </span>
+                </div>
+                <select id="ddlOperatorName" name="operatorName" class="form-control"></select>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="fuelType" class="field-label text-muted fs15 mb10"> Fuel Type</label>
+                <label class="field">
+                    <input type="text" name="fuelType" id="fuelType" class="gui-input" readonly>
+                </label>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="fuelSize" class="field-label text-muted fs15 mb10"> Fuel Size*</label>
+                <label class="field">
+                    <input type="text" name="fuelSize" id="fuelSize" class="gui-input" readonly>
+                </label>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="rejected" class="field-label text-muted fs15 mb10"> Rejected*</label>
+                <label class="field">
+                    <input type="number" name="rejected" id="rejected" class="gui-input">
+                </label>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="accepted" class="field-label text-muted fs15 mb10"> Accepted*</label>
+                <label class="field">
+                    <input type="number" name="accepted" id="accepted" class="gui-input">
+                </label>
+            </div>
+        </div>
+    </div>-->
+                                    <!--<div class="row">
+                        <div class="col-lg-12">
+                            <div class="section">
+                                <label for="rejectedReasons" class="field-label text-muted fs15 mb10"> Rejected Reasons*</label>
+                                <select id="rejectedReasons" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+    <option value="tomatoes">Tomatoes</option>
+    <option value="mozarella">Mozzarella</option>
+    <option value="mushrooms">Mushrooms</option>
+    <option value="pepperoni">Pepperoni</option>
+    <option value="onions">Onions</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>-->
+                                    <!--<div class="row" id="rowBaleLocation">
+                        <div class="col-lg-12">
+                            <div class="section">
+                                <label for="baleLocations" class="field-label text-muted fs15 mb10"> Bale Locations*</label>
+                                <select id="baleLocations" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+    <option value="tomatoes">Tomatoes</option>
+    <option value="mozarella">Mozzarella</option>
+    <option value="mushrooms">Mushrooms</option>
+    <option value="pepperoni">Pepperoni</option>
+    <option value="onions">Onions</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>-->
+                                    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="section">
+                <label for="comments" class="field-label text-muted fs15 mb10"> Comments</label>
+                <label class="field prepend-icon">
+                    <textarea class="gui-textarea" id="comments" name="comments" placeholder="Enter comments"></textarea>
+                    <label for="comments" class="field-icon">
+                        <i class="fa fa-comments"></i>
+                    </label>
+                    <span class="input-footer" style="display:none">
+                        <strong>Hint:</strong>Don't be negative or off topic! just be awesome...
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>-->
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic1" class="btn btn-primary" style="width:100%">Take Image-1</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic1" class="btn btn-success" style="width:100%">Select Image-1</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic1" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemovePic1">Remove</button>
+                                                <input type="hidden" id="hfPic1" />
+                                                <p id="lblPic1"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnPic2" class="btn btn-primary" style="width:100%">Take Image-2</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic2" class="btn btn-success" style="width:100%">Select Image-2</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic2" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemovePic2">Remove</button>
+                                                <input type="hidden" id="hfPic2" />
+                                                <p id="lblPic2"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic3" class="btn btn-primary" style="width:100%">Take Image-3</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic3" class="btn btn-success" style="width:100%">Select Image-3</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic3" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemovePic3">Remove</button>
+                                                <input type="hidden" id="hfPic3" />
+                                                <p id="lblPic3"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic4" class="btn btn-primary" style="width:100%">Take Image-4</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic4" class="btn btn-success" style="width:100%">Select Image-4</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic4" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemovePic4">Remove</button>
+                                                <input type="hidden" id="hfPic4" />
+                                                <p id="lblPic4"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic5" class="btn btn-primary" style="width:100%">Take Image-5</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic5" class="btn btn-success" style="width:100%">Select Image-5</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic5" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemovePic5">Remove</button>
+                                                <input type="hidden" id="hfPic5" />
+                                                <p id="lblPic5"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic6" class="btn btn-primary" style="width:100%">Take Image-6</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic6" class="btn btn-success" style="width:100%">Select Image-6</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic6" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemovePic6">Remove</button>
+                                                <input type="hidden" id="hfPic6" />
+                                                <p id="lblPic6"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end: .tray-center -->
+            </section>
+            <!-- End: Content -->
+
+        </section>
+
+        <div class="footer">
+            <button class="button btn btn-alert active" style="width:100%" id="btnSave">Save Data</button>
+        </div>
+        
+    </div>
+    <!-- End: Main -->
+    <!-- BEGIN: PAGE SCRIPTS -->
+    <!-- jQuery -->
+    <script src="theme/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script src="theme/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+
+    <!-- Select2 Plugin Plugin -->
+
+    <script src="theme/vendor/plugins/select2/select2.min.js"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+
+    <!-- Theme Javascript -->
+    <script src="theme/assets/js/utility/utility.js"></script>
+    <!--<script src="theme/assets/js/demo/demo.js"></script>
+    <script src="theme/assets/js/main.js"></script>-->
+    <!--<script src="scripts/editFlowNative.js"></script>-->
+    <script src="scripts/models.js"></script>
+    <script src="scripts/editFlow.js"></script>
+    <!-- END: PAGE SCRIPTS -->
+
+</body>
+
+</html>

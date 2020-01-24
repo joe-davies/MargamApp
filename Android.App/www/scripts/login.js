@@ -26,7 +26,7 @@ var storage = window.localStorage;
         
         var btnLoin = document.querySelector("btnLogin");
         btnLogin.addEventListener("click", fnLoginUser, false); 
-        Validatetoken_Login();
+       // Validatetoken_Login();
         window.plugins.spinnerDialog.hide();
 
         //only once
@@ -92,7 +92,7 @@ var storage = window.localStorage;
 
     function onLoginSuccess2(token) {
         storage.setItem('loadEntryUserDetails', token);
-        window.plugins.spinnerDialog.show("Syncing", "Fuel Rejection Data...", true);
+        window.plugins.spinnerDialog.show("Syncing", "Load Rejection Data...", true);
         syncDataFromCloudServer();
     }
     function onLoginSuccess(userEmailId, userName) {
@@ -105,7 +105,7 @@ var storage = window.localStorage;
         }
         storage.setItem('loadEntryUserDetails', userDetails);  
 
-        window.plugins.spinnerDialog.show("Syncing", "Fuel Rejection Data...", true);
+        window.plugins.spinnerDialog.show("Syncing", "Load Rejection Data...", true);
         syncDataFromCloudServer(userEmailId);
     }
     function onPause() {

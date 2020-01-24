@@ -4,7 +4,7 @@
     var emailId = _encodedData.split('~')[0];
     fnManageLocalStorageKeys();
 
-    var url = 'https://apitest.eco2cift.co.uk/api/Settings/GetDataByEmailId?EmailId=' + emailId;
+    var url = 'https://apitest.eco2cift.co.uk/api/Settings/GetLoadRejectionDataByUserId?UserId=' + emailId;
     var serviceUrl = encodeURI(url);
     var isDataSynced = false;
 
@@ -81,9 +81,10 @@ function storeData(data) {
 }
 
 function storeMuliRejReason(data) {
-    if (data.length > 0) {
-        var muliRejReason = JSON.stringify(data);
-        window.localStorage.setItem('isMuliRejectionReason', muliRejReason);
+    debugger;
+    if (data != null) {
+        //var muliRejReason = JSON.stringify(data);
+        window.localStorage.setItem('isMuliRejectionReason', data);
     }
 }
 
@@ -134,7 +135,7 @@ function syncNotifications() {
     var _encodedData = window.atob(_token);
     var userId = _encodedData.split('~')[0];
     
-    var url = 'https://apitest.eco2cift.co.uk/api/Settings/GetFuelRejectArchive/' + userId;
+    var url = 'https://apitest.eco2cift.co.uk/api/Settings/GetLoadRejectArchive/' + userId;
     var serviceUrl = encodeURI(url);
     var isDataSynced = false;
 

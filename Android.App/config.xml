@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="com.eco2uk.myapp800450" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1">
   <name>Load Rejection</name>
-  <description>This Fuel Rejection App will be a simplified version to the one that has already been developed. The app is for a new plant and possibly other plants operating along the same pattern.</description>
+  <description>This Load Rejection App will be a simplified version to the one that has already been developed. The app is for a new plant and possibly other plants operating along the same pattern.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">Rohiet - Miglani Software Services</author>
   <vs:template-name>BlankJS</vs:template-name>
   <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
   <engine name="android" spec="5.2.1" />
   <engine name="ios" spec="4.2.0" />
   <engine name="windows" spec="4.4.2" />
-  <content src="index.html" />
+  <content src="login.html" />
   <access origin="*" />
   <preference name="SplashScreen" value="screen" />
   <preference name="windows-target-version" value="10.0" />

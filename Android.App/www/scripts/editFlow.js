@@ -1,4 +1,5 @@
 ﻿
+var isMuliRejectionReason;
 document.addEventListener('deviceready', onDeviceReadyEdit.bind(this), false);
 
 function onDeviceReadyEdit() {
@@ -13,11 +14,8 @@ function onDeviceReadyEdit() {
 
     // Get check for multi reection data
     let muliRejReason = window.localStorage.getItem('isMuliRejectionReason');
-    var isMuliRejectionReason = JSON.parse(muliRejReason);
-
-    // do document ready stuff
-
-
+    isMuliRejectionReason = JSON.parse(muliRejReason);
+    
     fnFillLoadDetailToEdit();
       
     $(".ui-selectmenu-button").hide();
@@ -25,7 +23,7 @@ function onDeviceReadyEdit() {
     // Check for Multi Rejection Selection
 
 
-    if (isMuliRejectionReason == "true") {
+    if (isMuliRejectionReason) {
         $("#multiRejectedReasons").show();
         $("#rejectionReason").hide();
 
@@ -219,7 +217,7 @@ let app = {
 
             _existingEdittedRecord.ltNumber = $("#ltNumber").val();
             _existingEdittedRecord.vrn = $("#regNo").val();
-            _existingEdittedRecord.subHaulier = $("#subHaulier").val();
+            //_existingEdittedRecord.subHaulier = $("#subHaulier").val();
             _existingEdittedRecord.operator = $("#operatorName").val();
             _existingEdittedRecord.note = $("#note").val();
             _existingEdittedRecord.rejComments = $("#comments").val();
@@ -261,15 +259,15 @@ function fnFillLoadDetailToEdit() {
 
         $("#plannedDeliveryDate").val(_deliveryDate.getDate() + "/" + (_deliveryDate.getMonth() + 1) + "/" + _deliveryDate.getFullYear());
         $("#haulier").val(_loadDetail.haulier);
-        $("#subHaulier").val(_loadDetail.subHaulier);
+        //$("#subHaulier").val(_loadDetail.subHaulier);
         $("#regNo").val(_loadDetail.vrn);
         $("#comments").val(_loadDetail.rejComments);
         $("#ltNumber").val(_loadDetail.ltNumber);
         $("#note").val(_loadDetail.note);
                
         fnManageLoadEntryPictures(_loadDetail);
-        fnFillRejectionReasonData(_loadDetail);
-        fnFillPlantOperators(_loadDetail);
+        fnFillRejectionReasonData(_loadDetail);        
+        fnFillPlantOperatorData(_loadDetail)
     }
 }
 
@@ -374,7 +372,7 @@ function fnFillRejectionReasonData(oLoad) {
             /// Task #11 end
         });
 
-        if (isMuliRejectionReason == "true") {
+        if (isMuliRejectionReason) {
             let rejectReasonSelect = $("#multiRejectedReasons");
             rejectReasonSelect.append(_rReasonOptions);
             rejectReasonSelect.selectmenu();
@@ -430,7 +428,7 @@ function fnGetDropdownValues(oLoad) {
     }
 
     // Get Rejected Reason
-    if (isMuliRejectionReason == "true") {
+    if (isMuliRejectionReason) {
         oLoad.rejReasons = $("#multiRejectedReasons").parent().find(":button").prop('title');
 
         if (oLoad.rejReasons === "None selected") {

@@ -74,7 +74,7 @@
   </Target>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties project_1json__JSONSchema="http://www.asp.net/media/4878834/project.json" />
+      <UserProperties />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
@@ -681,6 +681,7 @@
     <Content Include="www\css\jquery.mobile-1.4.5.min.css" />
     <Content Include="www\dashboard.html" />
     <Content Include="www\editflow-old.html" />
+    <Content Include="www\nonloadentrylist.html" />
     <Content Include="www\edittedflowlist.html" />
     <Content Include="www\flowdetails.html" />
     <Content Include="www\flowedit.html" />
@@ -701,6 +702,7 @@
     <Content Include="www\scripts\jquery.mobile-1.4.5.min.js" />
     <Content Include="www\scripts\login.js" />
     <Content Include="www\scripts\models.js" />
+    <Content Include="www\scripts\nonloadlist.js" />
     <Content Include="www\scripts\notifiesflowlist.js" />
     <Content Include="www\scripts\platformOverrides.js" />
     <Content Include="www\scripts\sync.js" />

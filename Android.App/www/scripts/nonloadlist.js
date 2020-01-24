@@ -3,20 +3,20 @@ var lastResume = null;
 var MIN_RESUME_DIFF_MS = 4000;
 // End {For "Resume" event firing twice}
 
-var app_edittedFlowList = {
+var app_nonLoadEntryList = {
     init: function init() {
         document.getElementById("dvWarning").style.display = "none";
 
-        app_edittedFlowList.countEdittedFlowData();
-        app_edittedFlowList.countNotifiedFlowData();
-        app_edittedFlowList.countNonLoadEntryData();
+        app_nonLoadEntryList.countEdittedEntryData();
+        app_nonLoadEntryList.countNotifiedFlowData();
+        app_nonLoadEntryList.countNonLoadEntryData();
 
         document.addEventListener('resume', onResumeEdittedList.bind(this), false);
-        document.addEventListener("offline", app_edittedFlowList.onOffline.bind(this), false);
-        app_edittedFlowList.validateConnection();
+        document.addEventListener("offline", app_nonLoadEntryList.onOffline.bind(this), false);
+        app_nonLoadEntryList.validateConnection();
     },
     onOffline: function onOffline() {
-        var btNotify = document.querySelector("#btnNotify");
+        var btNotify = document.querySelector("#btnInsert");
         var divWarning = document.getElementById("dvWarning");
         divWarning.style.display = "block";
         divWarning.classList.add("sticky");
@@ -26,11 +26,11 @@ var app_edittedFlowList = {
     fillTable: function fillTable() {
         var html = ""; //" <tr> <td> <div class='switch switch-info switch-inline'> <input id='sw1' type='checkbox' checked> <label for='sw1'></label> </div> </td>  <td> <span class='rating block mn pull-left'> 444444 </span> </td>  <td> Sony Inc </td>  </tr>";
 
-        if (window.localStorage.hasOwnProperty('editedLoadEntryData')) {
-            var editedData = window.localStorage.getItem('editedLoadEntryData');
-            var editedFloData = JSON.parse(editedData);
+        if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
+            let nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+            let nonLoadEntries = JSON.parse(nonLoadData);
 
-            $.each(editedFloData, function (index, eData) {
+            $.each(nonLoadEntries, function (index, eData) {
                 var validate_flow = {};
                 validate_flow.oLoadEntry = eData;
                 validate_flow.isValidFlow = false;
@@ -39,17 +39,17 @@ var app_edittedFlowList = {
                 ValidateFlow(validate_flow);
                 html = html + "<tr>";
                 if (validate_flow.isValidFlow == true) {
-                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.sampleID + "' name='sw_" + eData.sampleID + "' value='sw_" + eData.sampleID + "' class='cbx_dynamic'><span class='checkbox'></span></label></div></td>";
+                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.id + "' name='sw_" + index + "' value='sw_" + index + "' class='cbx_dynamic'><span class='checkbox'></span></label></div></td>";
                 }
                 else {
-                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.sampleID + "' name='sw_" + eData.sampleID + "' value='sw_" + eData.sampleID + "' class='cbx_dynamic' disabled><span class='checkbox'></span></label></div></td>";
+                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.id + "' name='sw_" + index + "' value='sw_" + index + "' class='cbx_dynamic' disabled><span class='checkbox'></span></label></div></td>";
                 }
 
                 //html = html + "<td><div class='switch switch-info switch-inline'> <input id='sw_" + eData.sampleID + "' type='checkbox' class='cbx_dynamic'> <label class='rOption' for='sw_" + eData.sampleID + "'></label> </div></td>";
-                html = html + "<td><span class='rating block mn pull-left'> " + eData.sampleID + " </span></td>";
-                html = html + "<td><span class='rating block mn pull-left'> " + eData.haulier + " </span></td>";
+                html = html + "<td><span class='rating block mn pull-left'> " + eData.operator + " </span></td>";
+                html = html + "<td><span class='rating block mn pull-left'> " + eData.rejReasons + " </span></td>";
                 html = html + "<td>" + validate_flow.lblHtml + "</td>";
-                html = html + "<td class = 'tdView' id = 'cView_" + eData.sampleID + "'><i class='fa fa-eye'></i></td>";
+                html = html + "<td class = 'tdView' id = 'cView_" + eData.id + "'><i class='fa fa-eye'></i></td>";
                 html = html + "</tr>";
             });
         }
@@ -61,13 +61,13 @@ var app_edittedFlowList = {
         // for tresting
         // html = " <tr> <td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_111' name='sw_111' value='sw_111'><span class='checkbox'></span></label></div></td>  <td> <span class='rating block mn pull-left'> 444444 </span> </td>  <td> Sony Inc </td> <td class = 'tdView'  ><i class='fa fa-eye'></i></td> </tr>";
 
-        $("#tbl_edittedflow > tbody").append(html);
+        $("#tbl_nonLoadEntry > tbody").append(html);
     },
-    countEdittedFlowData: function countEdittedFlowData() {
+    countEdittedEntryData: function countEdittedEntryData() {
         if (window.localStorage.hasOwnProperty('editedLoadEntryData')) {
-            var editedData = window.localStorage.getItem('editedLoadEntryData');
-            var editedFloData = JSON.parse(editedData);
-            $("#lblEditedBadge").text(editedFloData.length);
+            var nonLoadData = window.localStorage.getItem('editedLoadEntryData');
+            var nonLoadEntries = JSON.parse(nonLoadData);
+            $("#lblEditedBadge").text(nonLoadEntries.length);
         }
         else {
             $("#lblEditedBadge").text("0");
@@ -107,7 +107,7 @@ var app_edittedFlowList = {
         }
         if (_selectredFlowIds.length > 0) {
             window.plugins.spinnerDialog.show("Updating Data", "This will take a few moments - Please wait", true);
-            app_edittedFlowList.InitializeFlowUpdate(_selectredFlowIds);
+            app_nonLoadEntryList.InitializeFlowUpdate(_selectredFlowIds);
         }
         else {
             alert("Please select any record(s)!");
@@ -117,15 +117,15 @@ var app_edittedFlowList = {
     },
     InitializeFlowUpdate: function InitializeFlowUpdate(arr_flowIds) {
         // debugger;
-       // var _notifiedFlowData = [];
+        // var _notifiedFlowData = [];
         //var _flowDetailsFromEdittedList = {};
         //var isDataPostedOnTheServer = true;
 
-        var editedData = window.localStorage.getItem('editedLoadEntryData');
-        var editedFloData = JSON.parse(editedData);
+        var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+        var nonLoadEntries = JSON.parse(nonLoadData);
         var _selectedFlow = [];
         $.each(arr_flowIds, function (i, eFlowId) {
-            $.each(editedFloData, function (index, eData) {
+            $.each(nonLoadEntries, function (index, eData) {
                 if (eData.sampleID == eFlowId) {
                     _selectedFlow.push(eData);
                 }
@@ -133,16 +133,16 @@ var app_edittedFlowList = {
         });
 
 
-        app_edittedFlowList.updateFuelFlowToCloudServer(_selectedFlow, 0);
-//        app_edittedFlowList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
+        app_nonLoadEntryList.updateFuelFlowToCloudServer(_selectedFlow, 0);
+        //        app_nonLoadEntryList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
 
         //if (window.localStorage.hasOwnProperty('notifiedFlowData')) {
         //    var notifiedData = window.localStorage.getItem('notifiedFlowData');
         //    var notifiedFloData = JSON.parse(notifiedData);
 
         //    // get edited flow data collection and find flow
-        //    var editedData = window.localStorage.getItem('editedLoadEntryData');
-        //    var editedFloData = JSON.parse(editedData);
+        //    var nonLoadData = window.localStorage.getItem('editedLoadEntryData');
+        //    var nonLoadEntries = JSON.parse(nonLoadData);
 
         //    // get all selected flows and put them in the array
 
@@ -165,11 +165,11 @@ var app_edittedFlowList = {
         //    //}
         //}
         //else {
-        //    var editedData = window.localStorage.getItem('editedLoadEntryData');
-        //    var editedFloData = JSON.parse(editedData);
+        //    var nonLoadData = window.localStorage.getItem('editedLoadEntryData');
+        //    var nonLoadEntries = JSON.parse(nonLoadData);
         //    var _selectedFlow = [];
         //    $.each(arr_flowIds, function (i, eFlowId) {
-        //        $.each(editedFloData, function (index, eData) {
+        //        $.each(nonLoadEntries, function (index, eData) {
         //            if (eData.sampleID == eFlowId) {
         //                _selectedFlow.push(eData);
         //            }
@@ -177,11 +177,11 @@ var app_edittedFlowList = {
         //  });
 
 
-        //    app_edittedFlowList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
+        //    app_nonLoadEntryList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
 
         //$.each(arr_flowIds, function (i, eFlowId) {
         //    if (isDataPostedOnTheServer == true) {
-        //        $.each(editedFloData, function (index, eData) {
+        //        $.each(nonLoadEntries, function (index, eData) {
         //            if (eData.sampleID == eFlowId) {
 
         //            }
@@ -234,23 +234,23 @@ var app_edittedFlowList = {
         }
     },
     removeFlowFromEdittedList: function removeFlowFromEdittedList(e_flowId) {
-        var editedData = window.localStorage.getItem('editedLoadEntryData');
-        var editedFloData = JSON.parse(editedData);
+        var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+        var nonLoadEntries = JSON.parse(nonLoadData);
 
-        var updatedEditedFloData = [];
+        var updatednonLoadEntries = [];
         //$.each(fArr, function (i, eFlowId) {
-        $.each(editedFloData, function (index, eData) {
+        $.each(nonLoadEntries, function (index, eData) {
             if (eData.sampleID != e_flowId) {
-                updatedEditedFloData.push(eData);
+                updatednonLoadEntries.push(eData);
             }
         });
         //});
 
-        if (updatedEditedFloData.length > 0) {
-            window.localStorage.setItem('editedLoadEntryData', JSON.stringify(updatedEditedFloData));
+        if (updatednonLoadEntries.length > 0) {
+            window.localStorage.setItem('nonLoadEntryData', JSON.stringify(updatednonLoadEntries));
         }
         else {
-            window.localStorage.removeItem('editedLoadEntryData');
+            window.localStorage.removeItem('nonLoadEntryData');
         }
 
 
@@ -259,8 +259,8 @@ var app_edittedFlowList = {
         var e_isDataFound = false;
         var _flowData = {};
 
-        if (window.localStorage.hasOwnProperty('editedLoadEntryData')) {
-            var eData = window.localStorage.getItem('editedLoadEntryData');
+        if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
+            var eData = window.localStorage.getItem('nonLoadEntryData');
             if (eData != null) {
                 var eFlowData = JSON.parse(eData);
                 $.each(eFlowData, function (index, oLoadEntry) {
@@ -298,58 +298,58 @@ var app_edittedFlowList = {
         nLoadEntry.sampleID = oLoadEntry.sampleID;
         nLoadEntry.appSheetUser = oLoadEntry.appSheetUser;
         nLoadEntry.ltNumber = oLoadEntry.ltNumber;
-        nLoadEntry.note = oLoadEntry.note;        
+        nLoadEntry.note = oLoadEntry.note;
         nLoadEntry.deliverDate = oLoadEntry.deliverDate;
         nLoadEntry.haulier = oLoadEntry.haulier;
         nLoadEntry.subHaulier = oLoadEntry.source;
         nLoadEntry.vrn = oLoadEntry.vrn;
-        nLoadEntry.operator = oLoadEntry.operator;         
+        nLoadEntry.operator = oLoadEntry.operator;
         nLoadEntry.rejReasons = oLoadEntry.rejReasons;
-         
+
         nLoadEntry.rejComments = oLoadEntry.rejComments;
-        
+
         nLoadEntry.image1 = oLoadEntry.image1;
         nLoadEntry.image2 = oLoadEntry.image2;
         nLoadEntry.image3 = oLoadEntry.image3;
         nLoadEntry.image4 = oLoadEntry.image4;
         nLoadEntry.image5 = oLoadEntry.image5;
         nLoadEntry.image6 = oLoadEntry.image6;
-        
+
         nLoadEntry.dateTimeStamp = oLoadEntry.dateTimeStamp;
 
         var base64Image1 = "";
         if (nLoadEntry.image1 != null && nLoadEntry.image1.length > 0) {
-            app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image1, function (base64Image1) {
+            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image1, function (base64Image1) {
                 nLoadEntry.image1Base64String = base64Image1.toString().split(',')[1];
             });
         }
 
         if (nLoadEntry.image2 != null && nLoadEntry.image2.length > 0) {
-            app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image2, function (base64Image2) {
+            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image2, function (base64Image2) {
                 nLoadEntry.image2Base64String = base64Image2.toString().split(',')[1];
             });
         }
         if (nLoadEntry.image3 != null && nLoadEntry.image3.length > 0) {
-            app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image3, function (base64Image3) {
+            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image3, function (base64Image3) {
                 nLoadEntry.image3Base64String = base64Image3.toString().split(',')[1];
             });
         }
         if (nLoadEntry.image4 != null && nLoadEntry.image4.length > 0) {
 
-            app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image4, function (base64Image4) {
+            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image4, function (base64Image4) {
                 nLoadEntry.image4Base64String = base64Image4.toString().split(',')[1];
             });
         }
         if (nLoadEntry.image5 != null && nLoadEntry.image5.length > 0) {
 
-            app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image5, function (base64Image5) {
+            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image5, function (base64Image5) {
                 nLoadEntry.image5Base64String = base64Image5.toString().split(',')[1];
             });
         }
 
         if (nLoadEntry.image6 != null && nLoadEntry.image6.length > 0) {
 
-            app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image6, function (base64Image6) {
+            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image6, function (base64Image6) {
                 nLoadEntry.image6Base64String = base64Image6.toString().split(',')[1];
             });
         }
@@ -371,10 +371,10 @@ var app_edittedFlowList = {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
 
-                            app_edittedFlowList.validateSync(nLoadEntry.sampleID);
+                            app_nonLoadEntryList.validateSync(nLoadEntry.sampleID);
                             var _lastSynced = new Date().toLocaleString('en-GB');
                             nLoadEntry.dateTimeStamp = _lastSynced;
-                            app_edittedFlowList.removeFlowFromEdittedList(nLoadEntry.sampleID);
+                            app_nonLoadEntryList.removeFlowFromEdittedList(nLoadEntry.sampleID);
                             //oNotifiedList.push(nLoadEntry);
                             window.localStorage.setItem('lastSyncedDate_LoadRejection', _lastSynced.toString());
 
@@ -382,13 +382,13 @@ var app_edittedFlowList = {
                             if (arrIndex < (arrSelectedItem.length - 1)) {
                                 // Recursive functionality
                                 var newIndex = arrIndex + 1;
-                                app_edittedFlowList.updateFuelFlowToCloudServer(arrSelectedItem, newIndex)
+                                app_nonLoadEntryList.updateFuelFlowToCloudServer(arrSelectedItem, newIndex)
                             }
                             else {
                                 // It means all records are synced now
-                               // app_edittedFlowList.manageNotifiedList(oNotifiedList);
+                                // app_nonLoadEntryList.manageNotifiedList(oNotifiedList);
                                 window.plugins.spinnerDialog.hide();
-                                alert("Synchronisation successful");                                
+                                alert("Synchronisation successful");
                                 window.location.href = "notifiedflowlist.html";
                             }
                         }
@@ -415,7 +415,7 @@ var app_edittedFlowList = {
                 alert("Synchronisation unsuccessful");
                 alert("Error: " + e);
                 window.plugins.spinnerDialog.hide();
-                window.location.href = "edittedflowlist.html";
+                window.location.href = "nonLoadEntrylist.html";
             }
 
         }, millisecondsToWait_UploadImage);
@@ -436,7 +436,7 @@ var app_edittedFlowList = {
                     if (_result === "false") {
                         alert("Synchronisation unsuccessful - Please try again");
                         window.plugins.spinnerDialog.hide();
-                        window.location.href = "edittedflowlist.html";
+                        window.location.href = "nonLoadEntrylist.html";
                     }
                 }
             };
@@ -444,7 +444,7 @@ var app_edittedFlowList = {
         } catch (e) {
             alert("Synchronisation unsuccessful - Please try again");
             window.plugins.spinnerDialog.hide();
-            window.location.href = "edittedflowlist.html";
+            window.location.href = "nonLoadEntrylist.html";
         }
 
     },
@@ -472,14 +472,14 @@ var app_edittedFlowList = {
             var networkState = navigator.connection.type;
 
             if (networkState == Connection.NONE) {
-                app_edittedFlowList.onOffline();
+                app_nonLoadEntryList.onOffline();
             }
         }
     }
 }
 
 $(document).on("pagebeforeshow", function () {
-    app_edittedFlowList.fillTable();
+    app_nonLoadEntryList.fillTable();
 });
 $(document).ready(function () {
     $("#dashboardAnchor").on("click", function (e) {
@@ -488,24 +488,24 @@ $(document).ready(function () {
 
     $("#newAnchor").on("click", function (e) {
         window.location.href = "nonloadentrylist.html";
-    });    
+    });
 
     $("#editedAnchor").on("click", function (e) {
-        window.location.href = "edittedflowlist.html";
+        window.location.href = "nonLoadEntrylist.html";
     });
 
     $("#notifiedAnchor").on("click", function (e) {
         window.location.href = "notifiedflowlist.html";
     });
 
-    $('#btnNotify').on("click", function () {
-        app_edittedFlowList.getFlowtoNotify()
+    $('#btnInsert').on("click", function () {
+        app_nonLoadEntryList.getFlowtoNotify()
     });
 
-    $("#tbl_edittedflow").on("click", ".tdView", function () {
+    $("#tbl_nonLoadEntry").on("click", ".tdView", function () {
         window.plugins.spinnerDialog.show("View Flow", "Getting Info...", true);
         var _flowId = this.id.split("_")[1];
-        app_edittedFlowList.viewFlowInfo(_flowId);
+        app_nonLoadEntryList.viewFlowInfo(_flowId);
     });
 });
 
@@ -513,12 +513,12 @@ function ValidateFlow(ovFlow) {
     ovFlow.isValidFlow = true;
     ovFlow.lblHtml = "<span class='label label-success mr5 mb10 ib lh15'>Complete</span>";
 
-    if (ovFlow.isValidFlow === true) {
-        if (ovFlow.oLoadEntry.vrn.length <= 0) {
-            ovFlow.isValidFlow = false;
-            ovFlow.lblHtml = "<span class='label label-danger mr5 mb10 ib lh15'>*Reg No</span>";
-        }
-    }
+    //if (ovFlow.isValidFlow === true) {
+    //    if (ovFlow.oLoadEntry.vrn.length <= 0) {
+    //        ovFlow.isValidFlow = false;
+    //        ovFlow.lblHtml = "<span class='label label-danger mr5 mb10 ib lh15'>*Reg No</span>";
+    //    }
+    //}
     if (ovFlow.isValidFlow === true) {
         if (ovFlow.oLoadEntry.operator.length <= 0) {
             ovFlow.isValidFlow = false;
@@ -596,13 +596,13 @@ function onResumeEdittedList() {
         if ((_currDate.getTime() - lastResume.getTime()) > MIN_RESUME_DIFF_MS) {
             lastTime = new Date();
             ValidateLogin_token();
-            app_edittedFlowList.validateConnection();
+            app_nonLoadEntryList.validateConnection();
         }
     }
     else {
         lastTime = new Date();
         ValidateLogin_token();
-        app_edittedFlowList.validateConnection();
+        app_nonLoadEntryList.validateConnection();
     }
 };
 
@@ -614,9 +614,9 @@ function validateNetworkConnectionDuringProcess() {
         if (networkState == Connection.NONE) {
             alert("Network Connection Lost!");
             window.plugins.spinnerDialog.hide();
-            window.location.href = "edittedflowlist.html";
+            window.location.href = "nonLoadEntrylist.html";
         }
     }
 }
 
-document.addEventListener('deviceready', app_edittedFlowList.init.bind(this), false);
+document.addEventListener('deviceready', app_nonLoadEntryList.init.bind(this), false);

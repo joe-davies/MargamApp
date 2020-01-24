@@ -30,7 +30,7 @@ function onDeviceReady() {
 
         /// As per task# 7 
         /// Remove 'Top 5 Recent Searches' from the dashboard screen #7
-        document.getElementById("searchrow").style.display = "none";
+       // document.getElementById("searchrow").style.display = "none";
         /// Another scenario
         /// If you want to enable search feature, then comment the "searchrow" line and uncomment next line "fnInitializePage"
         ///  fnInitializePage();
@@ -56,8 +56,8 @@ function fnSetUserDetails() {
     document.getElementById("lblUser").textContent = userDetails[0].toString();
 
     // Last Sync Detail
-    if (window.localStorage.hasOwnProperty("lastSyncedDate")) {
-        var _lastsync = window.localStorage.getItem("lastSyncedDate");
+    if (window.localStorage.hasOwnProperty("lastSyncedDate_LoadRejection")) {
+        var _lastsync = window.localStorage.getItem("lastSyncedDate_LoadRejection");
         document.getElementById("lblLastSync").textContent = _lastsync.toString();
     }
     else {
@@ -91,8 +91,8 @@ function onSearchClick() {
     if (_searchItem.length <= 0) {
         alert("Search Item can not be null.");
     }
-    else if (_searchItem.length != 6) {
-        alert("Sample Id length must be 6.");
+    else if (_searchItem < 1000) {
+        alert("Sample Id must be greater than or equals to 1000.");
     }
     else {
         fnSearchLoadRejectionSampleId(_searchItem);
@@ -302,6 +302,15 @@ function fnBadgeCount() {
         $("#lblNotifiedBadge").text("0");
     }
 
+    if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
+        var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+        var nonLoadData = JSON.parse(notifiedData);
+        $("#lblNewBadge").text(notifiedFloData.length);
+    }
+    else {
+        $("#lblNewBadge").text("0");
+    }
+
 }
 
 function onRecentSearchClick(flowId) {
@@ -325,6 +334,10 @@ $(document).ready(function () {
     $("#editedAnchor").on("click", function (e) {
         window.location.href = "edittedflowlist.html";
     });
+
+    $("#newAnchor").on("click", function (e) {
+        window.location.href = "nonloadentrylist.html";
+    });    
 
     $("#notifiedAnchor").on("click", function (e) {
         window.location.href = "notifiedflowlist.html";

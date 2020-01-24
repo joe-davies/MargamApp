@@ -5,7 +5,8 @@
         syncNotifications();
         app_notifiedFlowList.fillTable();
         app_notifiedFlowList.countEdittedFlowData();
-        app_notifiedFlowList.countnotifiedFlowData();
+        app_notifiedFlowList.countNotifiedFlowData();
+        app_notifiedFlowList.countNonLoadEntryData();
 
         document.addEventListener('resume', onResumeNotifiedList.bind(this), false);
         window.plugins.spinnerDialog.hide();
@@ -53,6 +54,16 @@
         }
         else {
             $("#lblNotifiedBadge").text("0");
+        }
+    },
+    countNonLoadEntryData: function countNonLoadEntryData() {
+        if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
+            var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+            var nonLoadData = JSON.parse(notifiedData);
+            $("#lblNewBadge").text(notifiedFloData.length);
+        }
+        else {
+            $("#lblNewBadge").text("0");
         }
     },
     manageNotifieList: function manageNotifieList() {
@@ -112,6 +123,10 @@ $(document).ready(function () {
     $("#dashboardAnchor").on("click", function (e) {
         window.location.href = "dashboard.html";
     });
+
+    $("#newAnchor").on("click", function (e) {
+        window.location.href = "nonloadentrylist.html";
+    });    
 
     $("#editedAnchor").on("click", function (e) {
         window.location.href = "edittedflowlist.html";

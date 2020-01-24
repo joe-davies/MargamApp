@@ -38,8 +38,8 @@ function fnFillFlowDetail(_flowDetail) {
     $("#lblLtNumber").text(_flowDetail.ltNumber);
     $("#lblRegNo").text(_flowDetail.vrn);
     $("#lblOperatorName").text(_flowDetail.operator);
-    $("#lblNote").text(_flowDetail.fuelType);
-    $("#lblSource").text(_flowDetail.baleSize);     
+    $("#lblNote").text(_flowDetail.note);
+    $("#lblSource").text(_flowDetail.source);     
     $("#lblRejectionReasons").text(_flowDetail.rejReasons);
     $("#lblComments").text(_flowDetail.rejComments);
 }

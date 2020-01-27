@@ -26,7 +26,7 @@ var storage = window.localStorage;
         
         var btnLoin = document.querySelector("btnLogin");
         btnLogin.addEventListener("click", fnLoginUser, false); 
-       // Validatetoken_Login();
+        Validatetoken_Login();
         window.plugins.spinnerDialog.hide();
 
         //only once

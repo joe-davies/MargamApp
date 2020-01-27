@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <title>Load Rejection App</title>
+    <meta name="keywords" content="Load Rejetion App" />
+    <meta name="description" content="Load Rejetion App">
+    <meta name="author" content="MiglaniSoftwareServices">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/skin/default_skin/css/theme.css">
+
+    <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/assets/admin-tools/admin-forms/css/admin-forms.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="theme/assets/img/favicon.ico">
+
+    <style>
+        /*table, th, td {
+            border: 1px solid Black;
+        }*/
+
+        /* make the table a 100% wide by default */
+        table {
+            width: 100%;
+        }       
+
+        /* if the browser window is at least 800px-s wide: */
+        @media screen and (min-width: 800px) {
+            table {
+                width: 90%;
+            }
+        }
+
+        /* if the browser window is at least 1000px-s wide: */
+        @media screen and (min-width: 1000px) {
+            table {
+                width: 80%;
+            }
+        }
+
+        .tdBale {
+            background-color: goldenrod;
+            width: 13%;
+            padding: 15px 25px;
+            outline: none;
+            color: #fff;
+            /*border: none;*/
+            border-radius: 6px;
+            box-shadow: 0 6px #999;
+        }
+
+            .tdBale:active {
+                background-color: darkred;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+        .admin-form .checkbox {
+            width: 100%;
+            border: 1px solid #DDD;
+        }
+
+        .footer {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        .imgbtn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);           
+            padding: 12px 24px;
+            border: none;            
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body class="admin-elements-page" data-spy="scroll" data-target="#nav-spy" data-offset="300">
+    <input type="hidden" id="hdNonLoadId" value="" />
+    <!-- Start: Main -->
+    <div id="main">
+
+        <!-- Start: Content-Wrapper -->
+        <section id="content_wrapper" style="margin-left: 1px;">
+            <!-- Begin: Content -->
+            <section id="content" class="table-layout animated fadeIn">
+
+                <!-- begin: .tray-center -->
+                <div class="tray tray-center">
+
+                    <div class="center-block">
+                        <!--style="margin-top: -5%;"-->
+                        <!-- Begin: Content Header -->
+                        <div class="content-header">
+                            <h1> <b><span id="lblSampleId">Non-Load</span></b></h1>
+                        </div>
+
+                        <!-- Begin: Admin Form -->
+                        <div class="admin-form">
+                            <!--style="margin-top: -4%;"-->
+
+                            <div class="panel heading-border">
+                                <div class="panel-body bg-light">
+                                    <div class="section-divider mb40" id="spy1">
+                                        <span>Non Load Entry</span>
+                                    </div>
+                                    <!-- .section-divider -->
+                                    <table id="tblOuter" style="table-layout:fixed" class="table-responsive">
+                                         <tr>
+                                            <td style="width:35%">
+                                                Operator Name
+                                            </td>
+                                            <td style="width:65%">
+                                                <!--<input type="text" name="operatorName" id="operatorName" class="gui-input">-->
+                                                <select id="operatorName" name="operatorName" class="form-control"></select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="width:35%">
+                                                Rejected Reasons*
+                                            </td>
+                                            <td style="width:65%">
+                                                <select id="multiRejectedReasons" multiple="multiple"></select>
+                                                <select id="rejectionReason" name="rejectionReason" class="form-control"></select>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="text-align:left">
+                                                Comments
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="width:100%">
+                                                <textarea class="gui-textarea" id="comments" name="comments" placeholder="Enter comments"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+
+                                    </table>
+
+                                    <!-- Basic Inputs -->
+                                  
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic1" class="btn btn-primary" style="width:100%">Take Image-1</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic1" class="btn btn-success" style="width:100%">Select Image-1</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic1" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemoveNonLoadPic1">Remove</button>
+                                                <input type="hidden" id="hfPic1" />
+                                                <p id="lblPic1"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnPic2" class="btn btn-primary" style="width:100%">Take Image-2</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic2" class="btn btn-success" style="width:100%">Select Image-2</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic2" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemoveNonLoadPic2">Remove</button>
+                                                <input type="hidden" id="hfPic2" />
+                                                <p id="lblPic2"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic3" class="btn btn-primary" style="width:100%">Take Image-3</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic3" class="btn btn-success" style="width:100%">Select Image-3</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic3" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemoveNonLoadPic3">Remove</button>
+                                                <input type="hidden" id="hfPic3" />
+                                                <p id="lblPic3"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic4" class="btn btn-primary" style="width:100%">Take Image-4</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic4" class="btn btn-success" style="width:100%">Select Image-4</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic4" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemoveNonLoadPic4">Remove</button>
+                                                <input type="hidden" id="hfPic4" />
+                                                <p id="lblPic4"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic5" class="btn btn-primary" style="width:100%">Take Image-5</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic5" class="btn btn-success" style="width:100%">Select Image-5</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic5" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemoveNonLoadPic5">Remove</button>
+                                                <input type="hidden" id="hfPic5" />
+                                                <p id="lblPic5"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding-bottom:12%">
+                                            <div class="col-xs-6 text-left">
+                                                <button id="btnPic6" class="btn btn-primary" style="width:100%">Take Image-6</button>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <button id="btnSelectPic6" class="btn btn-success" style="width:100%">Select Image-6</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="section">
+                                                <img id="imgPic6" style="width: 100%" />
+                                                <button class="btn-danger imgbtn" id="btnRemoveNonLoadPic6">Remove</button>
+                                                <input type="hidden" id="hfPic6" />
+                                                <p id="lblPic6"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end: .tray-center -->
+            </section>
+            <!-- End: Content -->
+
+        </section>
+
+        <div class="footer">
+            <button class="button btn btn-alert active" style="width:100%" id="btnNonLoadSave">Save Data</button>
+        </div>
+        
+    </div>
+    <!-- End: Main -->
+    <!-- BEGIN: PAGE SCRIPTS -->
+    <!-- jQuery -->
+    <script src="theme/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script src="theme/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+
+    <!-- Select2 Plugin Plugin -->
+
+    <script src="theme/vendor/plugins/select2/select2.min.js"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+
+    <!-- Theme Javascript -->
+    <script src="theme/assets/js/utility/utility.js"></script>
+    <!--<script src="theme/assets/js/demo/demo.js"></script>
+    <script src="theme/assets/js/main.js"></script>-->
+    <!--<script src="scripts/editFlowNative.js"></script>-->
+    <script src="scripts/models.js"></script>
+    <script src="scripts/editNonLoad.js"></script>
+    <!-- END: PAGE SCRIPTS -->
+
+</body>
+
+</html>

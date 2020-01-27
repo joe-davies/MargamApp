@@ -54,14 +54,14 @@ var app_nonLoadEntryList = {
             });
         }
         else {
-            html = "<tr><td colspan='3'> No Data Found!</td></tr>";
+            html = "<tr><td colspan='5'> No Data Found!</td></tr>";
             $(".footer").hide();
         }
 
         // for tresting
         // html = " <tr> <td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_111' name='sw_111' value='sw_111'><span class='checkbox'></span></label></div></td>  <td> <span class='rating block mn pull-left'> 444444 </span> </td>  <td> Sony Inc </td> <td class = 'tdView'  ><i class='fa fa-eye'></i></td> </tr>";
 
-        $("#tbl_nonLoadEntry > tbody").append(html);
+        $("#tbl_nonloadflow > tbody").append(html);
     },
     countEdittedEntryData: function countEdittedEntryData() {
         if (window.localStorage.hasOwnProperty('editedLoadEntryData')) {
@@ -278,9 +278,9 @@ var app_nonLoadEntryList = {
         }
 
         if (e_isDataFound == true) {
-            window.sessionStorage.setItem('LoadEntryDetail', JSON.stringify(_flowData));
+            window.sessionStorage.setItem('NonLoadEntryDetail', JSON.stringify(_flowData));
             window.plugins.spinnerDialog.hide();
-            window.location.href = "flowdetails.html";
+            window.location.href = "nonload.html";
         }
         else {
             window.plugins.spinnerDialog.hide();
@@ -415,7 +415,7 @@ var app_nonLoadEntryList = {
                 alert("Synchronisation unsuccessful");
                 alert("Error: " + e);
                 window.plugins.spinnerDialog.hide();
-                window.location.href = "nonLoadEntrylist.html";
+                window.location.href = "nonloadentrylist.html";
             }
 
         }, millisecondsToWait_UploadImage);
@@ -436,7 +436,7 @@ var app_nonLoadEntryList = {
                     if (_result === "false") {
                         alert("Synchronisation unsuccessful - Please try again");
                         window.plugins.spinnerDialog.hide();
-                        window.location.href = "nonLoadEntrylist.html";
+                        window.location.href = "nonloadentrylist.html";
                     }
                 }
             };
@@ -444,7 +444,7 @@ var app_nonLoadEntryList = {
         } catch (e) {
             alert("Synchronisation unsuccessful - Please try again");
             window.plugins.spinnerDialog.hide();
-            window.location.href = "nonLoadEntrylist.html";
+            window.location.href = "nonloadentrylist.html";
         }
 
     },
@@ -491,7 +491,7 @@ $(document).ready(function () {
     });
 
     $("#editedAnchor").on("click", function (e) {
-        window.location.href = "nonLoadEntrylist.html";
+        window.location.href = "edittedflowlist.html";
     });
 
     $("#notifiedAnchor").on("click", function (e) {
@@ -502,8 +502,8 @@ $(document).ready(function () {
         app_nonLoadEntryList.getFlowtoNotify()
     });
 
-    $("#tbl_nonLoadEntry").on("click", ".tdView", function () {
-        window.plugins.spinnerDialog.show("View Flow", "Getting Info...", true);
+    $("#tbl_nonloadflow").on("click", ".tdView", function () {
+        window.plugins.spinnerDialog.show("Non-Load Data", "Getting Info...", true);
         var _flowId = this.id.split("_")[1];
         app_nonLoadEntryList.viewFlowInfo(_flowId);
     });
@@ -614,7 +614,7 @@ function validateNetworkConnectionDuringProcess() {
         if (networkState == Connection.NONE) {
             alert("Network Connection Lost!");
             window.plugins.spinnerDialog.hide();
-            window.location.href = "nonLoadEntrylist.html";
+            window.location.href = "nonloadentrylist.html";
         }
     }
 }

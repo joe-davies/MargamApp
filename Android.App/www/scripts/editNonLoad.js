@@ -5,19 +5,19 @@ document.addEventListener('deviceready', onDeviceReadyEdit.bind(this), false);
 function onDeviceReadyEdit() {
     document.addEventListener('resume', onResumeEdit.bind(this), false);
     // window.localStorage.removeItem("arrRegNo");
-    $("#btnRemovePic1").hide();
-    $("#btnRemovePic2").hide();
-    $("#btnRemovePic3").hide();
-    $("#btnRemovePic4").hide();
-    $("#btnRemovePic5").hide();
-    $("#btnRemovePic6").hide();
+    $("#btnRemoveNonLoadPic1").hide();
+    $("#btnRemoveNonLoadPic2").hide();
+    $("#btnRemoveNonLoadPic3").hide();
+    $("#btnRemoveNonLoadPic4").hide();
+    $("#btnRemoveNonLoadPic5").hide();
+    $("#btnRemoveNonLoadPic6").hide();
 
     // Get check for multi reection data
     var muliRejReason = window.localStorage.getItem('isMuliRejectionReason');
     var isMuliRejectionReason = JSON.parse(muliRejReason);
-    
-    fnFillLoadDetailToEdit();
-      
+
+    fnFillNonLoadDetailToEdit();
+
     $(".ui-selectmenu-button").hide();
 
     // Check for Multi Rejection Selection
@@ -41,8 +41,8 @@ function onDeviceReadyEdit() {
 }
 
 var app = {
-    cameraOptions: function cameraOptions() {
-        var cOptions = {
+    nonLoadCameraOptions: function nonLoadCameraOptions() {
+        var nlCameraOptions = {
             quality: 65,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.CAMERA,
@@ -53,10 +53,10 @@ var app = {
             //targetWidth: 350,
         };
 
-         return cOptions;
+        return nlCameraOptions;
     },
-    photoLibraryOptions: function photoLibraryOptions() {
-        var cOptions = {
+    nonLoadPhotoLibraryOptions: function nonLoadPhotoLibraryOptions() {
+        var nlCameraOptions = {
             quality: 65,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
@@ -68,130 +68,135 @@ var app = {
             //targetWidth: 350,
         };
 
-         return cOptions;
+        return nlCameraOptions;
     },
-    takephoto1: function takephoto1(imgIndex) {
-        var _cameraOptions = app.cameraOptions();
-        navigator.camera.getPicture(app.onCameraSuccess1, app.onCameraFailure1, _cameraOptions);
+    takeNonLoadPhoto1: function takeNonLoadPhoto1(imgIndex) {
+        var _nonLoadCameraOptions = app.nonLoadCameraOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess1, app.nonLoadCameraFailure1, _nonLoadCameraOptions);
     },
-    selectphoto1: function selectphoto1(imgIndex) {
-        var _photoOptions = app.photoLibraryOptions();
-        navigator.camera.getPicture(app.onCameraSuccess1, app.onCameraFailure1, _photoOptions);
+    selectNonLoadPhoto1: function selectNonLoadPhoto1(imgIndex) {
+        var _nonLoadPhotoOptions = app.nonLoadPhotoLibraryOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess1, app.nonLoadCameraFailure1, _nonLoadPhotoOptions);
     },
-    onCameraSuccess1: function onCameraSuccess1(imgURI) {
+    nonLoadCameraSuccess1: function nonLoadCameraSuccess1(imgURI) {
         $("#imgPic1").attr("src", imgURI);
         $("#lblPic1").append(imgURI);
         $("#hfPic1").val(imgURI);
-        $("#btnRemovePic1").show();
+        $("#btnRemoveNonLoadPic1").show();
     },
-    onCameraFailure1: function onCameraFailure1(message) {
+    nonLoadCameraFailure1: function nonLoadCameraFailure1(message) {
         alert('Failed because: ' + message);
     },
 
-    takephoto2: function takephoto2(imgIndex) {
-        var _cameraOptions = app.cameraOptions();
-        navigator.camera.getPicture(app.onCameraSuccess2, app.onCameraFailure2, _cameraOptions);
+    takeNonLoadPhoto2: function takeNonLoadPhoto2(imgIndex) {
+        var _nonLoadCameraOptions = app.nonLoadCameraOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess2, app.nonLoadCameraFailure2, _nonLoadCameraOptions);
     },
-    selectphoto2: function selectphoto1(imgIndex) {
-        var _photoOptions = app.photoLibraryOptions();
-        navigator.camera.getPicture(app.onCameraSuccess2, app.onCameraFailure2, _photoOptions);
+    selectNonLoadPhoto2: function selectNonLoadPhoto1(imgIndex) {
+        var _nonLoadPhotoOptions = app.nonLoadPhotoLibraryOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess2, app.nonLoadCameraFailure2, _nonLoadPhotoOptions);
     },
-    onCameraSuccess2: function onCameraSuccess2(imgURI) {
+    nonLoadCameraSuccess2: function nonLoadCameraSuccess2(imgURI) {
         $("#imgPic2").attr("src", imgURI);
         $("#lblPic2").append(imgURI);
         $("#hfPic2").val(imgURI);
-        $("#btnRemovePic2").show();
+        $("#btnRemoveNonLoadPic2").show();
     },
-    onCameraFailure2: function onCameraFailure2(message) {
+    nonLoadCameraFailure2: function nonLoadCameraFailure2(message) {
         alert('Failed because: ' + message);
     },
 
-    takephoto3: function takephoto3(imgIndex) {
-        var _cameraOptions = app.cameraOptions();
-        navigator.camera.getPicture(app.onCameraSuccess3, app.onCameraFailure3, _cameraOptions);
+    takeNonLoadPhoto3: function takeNonLoadPhoto3(imgIndex) {
+        var _nonLoadCameraOptions = app.nonLoadCameraOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess3, app.nonLoadCameraFailure3, _nonLoadCameraOptions);
     },
-    selectphoto3: function selectphoto1(imgIndex) {
-        var _photoOptions = app.photoLibraryOptions();
-        navigator.camera.getPicture(app.onCameraSuccess3, app.onCameraFailure3, _photoOptions);
+    selectNonLoadPhoto3: function selectNonLoadPhoto1(imgIndex) {
+        var _nonLoadPhotoOptions = app.nonLoadPhotoLibraryOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess3, app.nonLoadCameraFailure3, _nonLoadPhotoOptions);
     },
-    onCameraSuccess3: function onCameraSuccess3(imgURI) {
+    nonLoadCameraSuccess3: function nonLoadCameraSuccess3(imgURI) {
         $("#imgPic3").attr("src", imgURI);
         $("#lblPic3").append(imgURI);
         $("#hfPic3").val(imgURI);
-        $("#btnRemovePic3").show();
+        $("#btnRemoveNonLoadPic3").show();
     },
-    onCameraFailure3: function onCameraFailure3(message) {
+    nonLoadCameraFailure3: function nonLoadCameraFailure3(message) {
         alert('Failed because: ' + message);
     },
 
-    takephoto4: function takephoto4(imgIndex) {
-        var _cameraOptions = app.cameraOptions();
-        navigator.camera.getPicture(app.onCameraSuccess4, app.onCameraFailure4, _cameraOptions);
+    takeNonLoadPhoto4: function takeNonLoadPhoto4(imgIndex) {
+        var _nonLoadCameraOptions = app.nonLoadCameraOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess4, app.nonLoadCameraFailure4, _nonLoadCameraOptions);
     },
-    selectphoto4: function selectphoto1(imgIndex) {
-        var _photoOptions = app.photoLibraryOptions();
-        navigator.camera.getPicture(app.onCameraSuccess4, app.onCameraFailure4, _photoOptions);
+    selectNonLoadPhoto4: function selectNonLoadPhoto1(imgIndex) {
+        var _nonLoadPhotoOptions = app.nonLoadPhotoLibraryOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess4, app.nonLoadCameraFailure4, _nonLoadPhotoOptions);
     },
-    onCameraSuccess4: function onCameraSuccess4(imgURI) {
+    nonLoadCameraSuccess4: function nonLoadCameraSuccess4(imgURI) {
         $("#imgPic4").attr("src", imgURI);
         $("#lblPic4").append(imgURI);
         $("#hfPic4").val(imgURI);
-        $("#btnRemovePic4").show();
+        $("#btnRemoveNonLoadPic4").show();
     },
-    onCameraFailure4: function onCameraFailure4(message) {
+    nonLoadCameraFailure4: function nonLoadCameraFailure4(message) {
         alert('Failed because: ' + message);
     },
 
-    takephoto5: function takephoto5(imgIndex) {
-        var _cameraOptions = app.cameraOptions();
-        navigator.camera.getPicture(app.onCameraSuccess5, app.onCameraFailure5, _cameraOptions);
+    takeNonLoadPhoto5: function takeNonLoadPhoto5(imgIndex) {
+        var _nonLoadCameraOptions = app.nonLoadCameraOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess5, app.nonLoadCameraFailure5, _nonLoadCameraOptions);
     },
-    selectphoto5: function selectphoto1(imgIndex) {
-        var _photoOptions = app.photoLibraryOptions();
-        navigator.camera.getPicture(app.onCameraSuccess5, app.onCameraFailure5, _photoOptions);
+    selectNonLoadPhoto5: function selectNonLoadPhoto1(imgIndex) {
+        var _nonLoadPhotoOptions = app.nonLoadPhotoLibraryOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess5, app.nonLoadCameraFailure5, _nonLoadPhotoOptions);
     },
-    onCameraSuccess5: function onCameraSuccess5(imgURI) {
+    nonLoadCameraSuccess5: function nonLoadCameraSuccess5(imgURI) {
         $("#imgPic5").attr("src", imgURI);
         $("#lblPic5").append(imgURI);
         $("#hfPic5").val(imgURI);
-        $("#btnRemovePic5").show();
+        $("#btnRemoveNonLoadPic5").show();
     },
-    onCameraFailure5: function onCameraFailure5(message) {
+    nonLoadCameraFailure5: function nonLoadCameraFailure5(message) {
         alert('Failed because: ' + message);
     },
 
-    takephoto6: function takephoto6(imgIndex) {
-        var _cameraOptions = app.cameraOptions();
-        navigator.camera.getPicture(app.onCameraSuccess6, app.onCameraFailure6, _cameraOptions);
+    takeNonLoadPhoto6: function takeNonLoadPhoto6(imgIndex) {
+        var _nonLoadCameraOptions = app.nonLoadCameraOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess6, app.nonLoadCameraFailure6, _nonLoadCameraOptions);
     },
-    selectphoto6: function selectphoto6(imgIndex) {
-        var _photoOptions = app.photoLibraryOptions();
-        navigator.camera.getPicture(app.onCameraSuccess6, app.onCameraFailure6, _photoOptions);
+    selectNonLoadPhoto6: function selectNonLoadPhoto6(imgIndex) {
+        var _nonLoadPhotoOptions = app.nonLoadPhotoLibraryOptions();
+        navigator.camera.getPicture(app.nonLoadCameraSuccess6, app.nonLoadCameraFailure6, _nonLoadPhotoOptions);
     },
-    onCameraSuccess6: function onCameraSuccess6(imgURI) {
+    nonLoadCameraSuccess6: function nonLoadCameraSuccess6(imgURI) {
         $("#imgPic6").attr("src", imgURI);
         $("#lblPic6").append(imgURI);
         $("#hfPic6").val(imgURI);
-        $("#btnRemovePic6").show();
+        $("#btnRemoveNonLoadPic6").show();
     },
-    onCameraFailure6: function onCameraFailure6(message) {
+    nonLoadCameraFailure6: function nonLoadCameraFailure6(message) {
         alert('Failed because: ' + message);
     },
 
-    saveData: function saveData() {
+    saveNonLoadData: function saveNonLoadData() {
         try {
             window.plugins.spinnerDialog.show("Saving Data", "Loading", true);
-            var _sampleId = parseInt($("#lblSampleId").text());
+
+            var _id = 0;                
+            if ($("#hdNonLoadId").val().length > 0); {
+               _id = parseInt($("#hdNonLoadId").val());
+            }
+
             var _editedLoadData = [];
             var _isDataFound = false;
             var _existingEdittedRecord = {};
 
-            if (window.localStorage.hasOwnProperty('editedLoadEntryData')) {
-                var editedData = window.localStorage.getItem('editedLoadEntryData');
+            if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
+                var editedData = window.localStorage.getItem('nonLoadEntryData');
                 var editedFloData = JSON.parse(editedData);
 
                 $.each(editedFloData, function (index, eData) {
-                    if (eData.sampleID == _sampleId) {
+                    if (eData.id == _id) {
                         _existingEdittedRecord = eData;
                         _isDataFound = true;
                     }
@@ -203,23 +208,30 @@ var app = {
 
             if (_isDataFound == false) {
 
-                var cData = window.localStorage.getItem('cloudLoadEntryData');
+                var cData = window.localStorage.getItem('nonLoadEntryData');
                 var clodData = JSON.parse(cData);
 
                 $.each(clodData, function (index, cData) {
-                    if (cData.sampleID == _sampleId) {
+                    if (cData.id == _id) {
                         _existingEdittedRecord = cData;
                         _isDataFound = true;
                         return false;
                     }
                 });
-            } 
+            }
 
-            _existingEdittedRecord.ltNumber = $("#ltNumber").val();
-            _existingEdittedRecord.vrn = $("#regNo").val();
-            //_existingEdittedRecord.subHaulier = $("#subHaulier").val();
+            //deliverDate
+            if (_existingEdittedRecord.id != null) {
+                _existingEdittedRecord.id = GetTempNonLoadId();
+            }
+            
+            _existingEdittedRecord.appSheetUser = GetUserName();
+            _existingEdittedRecord.ltNumber = "Non-Load";
+            _existingEdittedRecord.vrn = "";
+            _existingEdittedRecord.haulier = "";
+            _existingEdittedRecord.source = "";
             _existingEdittedRecord.operator = $("#operatorName").val();
-            _existingEdittedRecord.note = $("#note").val();
+            _existingEdittedRecord.note = "";
             _existingEdittedRecord.rejComments = $("#comments").val();
             _existingEdittedRecord.image1 = $("#hfPic1").val();
             _existingEdittedRecord.image2 = $("#hfPic2").val();
@@ -230,13 +242,14 @@ var app = {
 
             // Get Dropdown lists value
             fnGetDropdownValues(_existingEdittedRecord);
-             
+
             _editedLoadData.push(_existingEdittedRecord);
 
-            window.localStorage.setItem('editedLoadEntryData', JSON.stringify(_editedLoadData));
-            window.sessionStorage.removeItem('LoadEntryDetail');
+            window.localStorage.setItem('nonLoadEntryData', JSON.stringify(_editedLoadData));
+
+            window.sessionStorage.removeItem('NonLoadEntryDetail');
             window.plugins.spinnerDialog.hide();
-            window.location.href = "dashboard.html";
+            window.location.href = "nonloadentrylist.html";
             // }
         } catch (e) {
             window.plugins.spinnerDialog.hide();
@@ -247,91 +260,82 @@ var app = {
         }
 
     },
-} 
+}
 
-function fnFillLoadDetailToEdit() {
-    var fDetail = window.sessionStorage.getItem('LoadEntryDetail');
+function GetTempNonLoadId() {
+    let _id = 0;
+    if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
+        let nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+        let nonLoadEntries = JSON.parse(nonLoadData);
+        let _length = Object.keys(nonLoadEntries.shareInfo[0]).length;
+        _id = _length + 1;
+    }
+
+    return _id;
+}
+
+function GetUserName() {
+    var uDetails = window.localStorage.getItem('loadEntryUserDetails');
+    var _encodedData = window.atob(uDetails);
+    var userDetails = _encodedData.split('~');
+
+    return userDetails[0].toString();
+}
+
+function fnFillNonLoadDetailToEdit() {
+    var fDetail = window.sessionStorage.getItem('NonLoadEntryDetail');
 
     if (fDetail.length > 0) {
         var _loadDetail = JSON.parse(fDetail);
 
-        var _deliveryDate = new Date(_loadDetail.deliverDate);
-        $("#lblSampleId").text(_loadDetail.sampleID);
-
-        $("#plannedDeliveryDate").val(_deliveryDate.getDate() + "/" + (_deliveryDate.getMonth() + 1) + "/" + _deliveryDate.getFullYear());
-        $("#haulier").val(_loadDetail.haulier);
-        //$("#subHaulier").val(_loadDetail.subHaulier);
-        $("#regNo").val(_loadDetail.vrn);
+        $("#hdNonLoadId").val(_loadDetail.id);
         $("#comments").val(_loadDetail.rejComments);
-        $("#ltNumber").val(_loadDetail.ltNumber);
+
         $("#note").val(_loadDetail.note);
-               
-        fnManageLoadEntryPictures(_loadDetail);
-        fnFillRejectionReasonData(_loadDetail);        
-        fnFillPlantOperatorData(_loadDetail)
+
+        fnManageNonLoadEntryPictures(_loadDetail);
+        fnFillNonLoadRejectionReasonData(_loadDetail);
+        fnFillNonLoadPlantOperatorData(_loadDetail)
     }
 }
 
-function fnManageLoadEntryPictures(oLoad) {
+function fnManageNonLoadEntryPictures(oLoad) {
 
     if (oLoad.image1 != null && oLoad.image1.length > 0) {
         $("#imgPic1").attr("src", oLoad.image1);
         $("#lblPic1").append(oLoad.image1);
         $("#hfPic1").val(oLoad.image1);
-        $("#btnRemovePic1").show();
+        $("#btnRemoveNonLoadPic1").show();
     }
     if (oLoad.image2 != null && oLoad.image2.length > 0) {
         $("#imgPic2").attr("src", oLoad.image2);
         $("#lblPic2").append(oLoad.image2);
         $("#hfPic2").val(oLoad.image2);
-        $("#btnRemovePic2").show();
+        $("#btnRemoveNonLoadPic2").show();
     }
     if (oLoad.image3 != null && oLoad.image3.length > 0) {
         $("#imgPic3").attr("src", oLoad.image3);
         $("#lblPic3").append(oLoad.image3);
         $("#hfPic3").val(oLoad.image3);
-        $("#btnRemovePic3").show();
+        $("#btnRemoveNonLoadPic3").show();
     }
     if (oLoad.image4 != null && oLoad.image4.length > 0) {
         $("#imgPic4").attr("src", oLoad.image4);
         $("#lblPic4").append(oLoad.image4);
         $("#hfPic4").val(oLoad.image4);
-        $("#btnRemovePic4").show();
+        $("#btnRemoveNonLoadPic4").show();
     }
     if (oLoad.image5 != null && oLoad.image5.length > 0) {
         $("#imgPic5").attr("src", oLoad.image5);
         $("#lblPic5").append(oLoad.image5);
         $("#hfPic5").val(oLoad.image5);
-        $("#btnRemovePic5").show();
+        $("#btnRemoveNonLoadPic5").show();
     }
 
 
 }
 
-function fnFillPlantOperators(oLoad) {
-    var _plantOperators = window.localStorage.getItem('plantOperatorsData');
-    if (_plantOperators.length > 0) {
-        var plantOperatorData = JSON.parse(_plantOperators);
-        var _pOperatorOptions = "";
-        $.each(plantOperatorData, function (index, _plantOperator) {
-
-            if (oLoad.operator == _plantOperator.operator) {
-                _pOperatorOptions = _pOperatorOptions + "<option value='" + _plantOperator.id + "' selected>" + _plantOperator.operator + "</option>";
-            }
-            else {
-                _pOperatorOptions = _pOperatorOptions + "<option value='" + _plantOperator.id + "' >" + _plantOperator.operator + "</option>";
-            }
-        });
-
-        var plantOperatorSelect = $("#operatorName");
-        plantOperatorSelect.append(_pOperatorOptions);
-        plantOperatorSelect.selectmenu();
-        plantOperatorSelect.selectmenu('refresh', true);
-
-    }
-}
-
-function fnFillRejectionReasonData(oLoad) {
+function fnFillNonLoadRejectionReasonData(oLoad) {
     var muliRejReason = window.localStorage.getItem('isMuliRejectionReason');
     var _isMuliRejectionReason = JSON.parse(muliRejReason);
 
@@ -341,8 +345,8 @@ function fnFillRejectionReasonData(oLoad) {
         var _rReasonOptions = "";
         $.each(rejectionReasonData, function (index, _rejectionReason) {
 
-            /// For Editing we only check for "Load" Fuel Group Reection Reasons as per the logged in user 
-            if (_rejectionReason.fuelGroup == "Load") {
+            /// For Editing we only check for "NonLoad" Fuel Group Reection Reasons as per the logged in user 
+            if (_rejectionReason.fuelGroup == "NonLoad") {
                 if (oLoad.rejReasons != null) {
                     var _existingRejectReasons = oLoad.rejReasons.split(",");
                     var _isRejectReasonMatched = false;
@@ -392,9 +396,7 @@ function fnFillRejectionReasonData(oLoad) {
     }
 }
 
-
-
-function fnFillPlantOperatorData(oLoad) {
+function fnFillNonLoadPlantOperatorData(oLoad) {
     var _plantOperator = window.localStorage.getItem('plantOperatorsData');
     if (_plantOperator.length > 0) {
         var plantOperatorData = JSON.parse(_plantOperator);
@@ -456,28 +458,7 @@ function fnGetDropdownValues(oLoad) {
 
 }
 
-//function GetBaleLocations() {
-//    var _selectedBaleLocations = "";
-//    $('.tdBale').each(function (ind, ele) {
-//        var _eleHidden = $(ele).find('input[type=hidden]');
-//        if (_eleHidden.val() == "1") {
-//            //            var _id = ele.id.replace('_', ' ');
-//            var _id = ele.id;
-//            if (_selectedBaleLocations.length > 0) {
-//                _selectedBaleLocations = _selectedBaleLocations + ", " + _id;
-//            }
-//            else {
-//                _selectedBaleLocations = _id;
-//            }
-//        };
 
-//    });
-
-//    if (_selectedBaleLocations.length < 0) {
-//        _selectedBaleLocations = null;
-//    }
-//    return _selectedBaleLocations;
-//}
 
 function onResumeEdit() {
     // TODO: This application has been reactivated. Restore application state here.
@@ -492,115 +473,83 @@ $(document).ready(function () {
         alert("hi");
     });
 
-    $("#btnRemovePic1").on("click", function () {
+    $("#btnRemoveNonLoadPic1").on("click", function () {
         $("#imgPic1").attr("src", "");
         $("#lblPic1").html("");
         $("#hfPic1").val("");
-        $("#btnRemovePic1").hide();
+        $("#btnRemoveNonLoadPic1").hide();
     });
 
-    $("#btnRemovePic2").on("click", function () {
+    $("#btnRemoveNonLoadPic2").on("click", function () {
         $("#imgPic2").attr("src", "");
         $("#lblPic2").html("");
         $("#hfPic2").val("");
-        $("#btnRemovePic2").hide();
+        $("#btnRemoveNonLoadPic2").hide();
     });
 
-    $("#btnRemovePic3").on("click", function () {
+    $("#btnRemoveNonLoadPic3").on("click", function () {
         $("#imgPic3").attr("src", "");
         $("#lblPic3").html("");
         $("#hfPic3").val("");
-        $("#btnRemovePic3").hide();
+        $("#btnRemoveNonLoadPic3").hide();
     });
 
-    $("#btnRemovePic4").on("click", function () {
+    $("#btnRemoveNonLoadPic4").on("click", function () {
         $("#imgPic4").attr("src", "");
         $("#lblPic4").html("");
         $("#hfPic4").val("");
-        $("#btnRemovePic4").hide();
+        $("#btnRemoveNonLoadPic4").hide();
     });
 
-    $("#btnRemovePic5").on("click", function () {
+    $("#btnRemoveNonLoadPic5").on("click", function () {
         $("#imgPic5").attr("src", "");
         $("#lblPic5").html("");
         $("#hfPic5").val("");
-        $("#btnRemovePic5").hide();
+        $("#btnRemoveNonLoadPic5").hide();
     });
 
-    //$("#ddlRegNo").on("change", function () {
-    //    var _index = $('option:selected', this).val();
-    //    var _value = $('option:selected', this).text();
-    //    if (_index == -1) {
-    //        $("#regNo").val("");
-    //    }
-    //    else {
-    //        $("#regNo").val(_value);
-    //    }
-
-    //});
-
-    //$("#ddlOperatorName").on("change", function () {
-    //    var _index = $('option:selected', this).val();
-    //    var _value = $('option:selected', this).text();
-    //    if (_index == -1) {
-    //        $("#operatorName").val("");
-    //    }
-    //    else {
-    //        $("#operatorName").val(_value);
-    //    }
-    //});
-
-    $("#btnSave").on("click", function () {
-        app.saveData()
+    $("#btnNonLoadSave").on("click", function () {
+        app.saveNonLoadData()
     });
 
     $("#btnPic1").on("click", function () {
-        app.takephoto1();
+        app.takeNonLoadPhoto1();
     });
 
     $("#btnPic2").on("click", function () {
-        app.takephoto2();
+        app.takeNonLoadPhoto2();
     });
 
     $("#btnPic3").on("click", function () {
-        app.takephoto3();
+        app.takeNonLoadPhoto3();
     });
 
     $("#btnPic4").on("click", function () {
-        app.takephoto4();
+        app.takeNonLoadPhoto4();
     });
 
     $("#btnPic5").on("click", function () {
-        app.takephoto5();
+        app.takeNonLoadPhoto5();
     });
     $("#btnPic6").on("click", function () {
-        app.takephoto6();
+        app.takeNonLoadPhoto6();
     });
 
     $("#btnSelectPic1").on("click", function () {
-        app.selectphoto1();
+        app.selectNonLoadPhoto1();
     });
     $("#btnSelectPic2").on("click", function () {
-        app.selectphoto2();
+        app.selectNonLoadPhoto2();
     });
     $("#btnSelectPic3").on("click", function () {
-        app.selectphoto3();
+        app.selectNonLoadPhoto3();
     });
     $("#btnSelectPic4").on("click", function () {
-        app.selectphoto4();
+        app.selectNonLoadPhoto4();
     });
     $("#btnSelectPic5").on("click", function () {
-        app.selectphoto5();
+        app.selectNonLoadPhoto5();
     });
 
-    /// Task #18
-    ///Force Registration number to Upper Case #18
-    $('#regNo').on('keyup', function () {
-        var $this = $(this), value = $this.val();
-        $this.val(value.toUpperCase());
-    });
-    /// Task #18 end
-
-     
 });
 

@@ -11067,7 +11067,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 7px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -20316,7 +20316,7 @@ body.sb-r-o #toggle_sidemenu_r span.glyphicons {
   margin: -10px 15px;
 }
 #topbar .nav.nav-list-topbar li a {
-  padding: 16px 14px 12px;
+  padding: 16px 06px 12px;
 }
 #topbar .nav.nav-list-topbar li.active a {
   border-bottom: 3px solid #4a89dc;

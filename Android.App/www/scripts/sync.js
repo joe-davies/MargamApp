@@ -81,7 +81,7 @@ function storeData(data) {
 }
 
 function storeMuliRejReason(data) {
-    debugger;
+   // debugger;
     if (data != null) {
         //var muliRejReason = JSON.stringify(data);
         window.localStorage.setItem('isMuliRejectionReason', data);

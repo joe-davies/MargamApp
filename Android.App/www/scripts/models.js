@@ -14,7 +14,6 @@ var customLoadEntry = {
     note: "",
     deliverDate: "",
     haulier: "",
-    subHaulier: "",
     vrn: "",
     operator: "",
     rejReasons: "",

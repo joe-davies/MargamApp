@@ -681,6 +681,7 @@
     <Content Include="www\css\jquery.mobile-1.4.5.min.css" />
     <Content Include="www\dashboard.html" />
     <Content Include="www\editflow-old.html" />
+    <Content Include="www\nonload.html" />
     <Content Include="www\nonloadentrylist.html" />
     <Content Include="www\edittedflowlist.html" />
     <Content Include="www\flowdetails.html" />
@@ -693,6 +694,7 @@
     <Content Include="www\login2.html" />
     <Content Include="www\notifiedflowlist.html" />
     <Content Include="www\scripts\dashboard.js" />
+    <Content Include="www\scripts\editNonLoad.js" />
     <Content Include="www\scripts\editFlow.js" />
     <Content Include="www\scripts\editFlowNative.js" />
     <Content Include="www\scripts\edittedflowlist.js" />

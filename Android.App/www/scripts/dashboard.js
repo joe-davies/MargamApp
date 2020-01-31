@@ -27,6 +27,8 @@ function onDeviceReady() {
         btRefresh.addEventListener("click", onRefreshClick, false);
         /// End of task# 8
 
+        var btnNonLoadEntry = document.getElementById("btnNonLoadEntry");
+        btnNonLoadEntry.addEventListener("click", onNonLoadClick, false);
 
         /// As per task# 7 
         /// Remove 'Top 5 Recent Searches' from the dashboard screen #7
@@ -63,6 +65,12 @@ function fnSetUserDetails() {
     else {
         document.getElementById("lblLastSync").textContent="Never";
     }
+}
+
+function onNonLoadClick() {
+    window.plugins.spinnerDialog.show("Loading", "Non-Load Entry...", true);
+
+    window.location.href = "nonload.html";
 }
 
 function onRefreshClick() {
@@ -303,9 +311,9 @@ function fnBadgeCount() {
     }
 
     if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
-        var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
-        var nonLoadData = JSON.parse(notifiedData);
-        $("#lblNewBadge").text(notifiedFloData.length);
+        let nonLoad = window.localStorage.getItem('nonLoadEntryData');
+        let nonLoadData = JSON.parse(nonLoad);
+        $("#lblNewBadge").text(nonLoadData.length);
     }
     else {
         $("#lblNewBadge").text("0");

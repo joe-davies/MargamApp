@@ -7,8 +7,8 @@
 
 var customLoadEntry = {
 
-    id: null,
-    sampleID: null,
+    id: 0,
+    sampleID: 0,
     appSheetUser: "",
     ltNumber: "",
     note: "",

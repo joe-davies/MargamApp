@@ -49,7 +49,7 @@ var app_nonLoadEntryList = {
                 html = html + "<td><span class='rating block mn pull-left'> " + eData.operator + " </span></td>";
                 html = html + "<td><span class='rating block mn pull-left'> " + eData.rejReasons + " </span></td>";
                 html = html + "<td>" + validate_flow.lblHtml + "</td>";
-                html = html + "<td class = 'tdView' id = 'cView_" + eData.id + "'><i class='fa fa-eye'></i></td>";
+                html = html + "<td class = 'tdView' id = 'cView_" + eData.id + "'><i class='fa fa-edit'></i></td>";
                 html = html + "</tr>";
             });
         }
@@ -85,9 +85,9 @@ var app_nonLoadEntryList = {
     },
     countNonLoadEntryData: function countNonLoadEntryData() {
         if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
-            var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
-            var nonLoadData = JSON.parse(notifiedData);
-            $("#lblNewBadge").text(notifiedFloData.length);
+            let nonLoad = window.localStorage.getItem('nonLoadEntryData');
+            let nonLoadData = JSON.parse(nonLoad);
+            $("#lblNewBadge").text(nonLoadData.length);
         }
         else {
             $("#lblNewBadge").text("0");
@@ -255,7 +255,7 @@ var app_nonLoadEntryList = {
 
 
     },
-    viewFlowInfo: function viewFlowInfo(fFlowId) {
+    eEditNonLoad: function eEditNonLoad(id) {
         var e_isDataFound = false;
         var _flowData = {};
 
@@ -265,7 +265,7 @@ var app_nonLoadEntryList = {
                 var eFlowData = JSON.parse(eData);
                 $.each(eFlowData, function (index, oLoadEntry) {
                     //   debugger;
-                    if (oLoadEntry.sampleID == fFlowId) {
+                    if (oLoadEntry.id == id) {
                         _flowData = oLoadEntry;
                         e_isDataFound = true;
                         return false;
@@ -504,8 +504,8 @@ $(document).ready(function () {
 
     $("#tbl_nonloadflow").on("click", ".tdView", function () {
         window.plugins.spinnerDialog.show("Non-Load Data", "Getting Info...", true);
-        var _flowId = this.id.split("_")[1];
-        app_nonLoadEntryList.viewFlowInfo(_flowId);
+        var _id = this.id.split("_")[1];
+        app_nonLoadEntryList.eEditNonLoad(_id);
     });
 });
 

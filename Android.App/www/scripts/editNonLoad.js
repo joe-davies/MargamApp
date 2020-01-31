@@ -182,9 +182,9 @@ var app = {
         try {
             window.plugins.spinnerDialog.show("Saving Data", "Loading", true);
 
-            var _id = 0;                
-            if ($("#hdNonLoadId").val().length > 0); {
-               _id = parseInt($("#hdNonLoadId").val());
+            var _id = 0;
+            if ($("#hdNonLoadId").val().length > 0) {
+                _id = parseInt($("#hdNonLoadId").val());
             }
 
             var _editedLoadData = [];
@@ -208,29 +208,32 @@ var app = {
 
             if (_isDataFound == false) {
 
-                var cData = window.localStorage.getItem('nonLoadEntryData');
-                var clodData = JSON.parse(cData);
+                _existingEdittedRecord = customLoadEntry;
+                //var cData = window.localStorage.getItem('nonLoadEntryData');
+                //var clodData = JSON.parse(cData);
 
-                $.each(clodData, function (index, cData) {
-                    if (cData.id == _id) {
-                        _existingEdittedRecord = cData;
-                        _isDataFound = true;
-                        return false;
-                    }
-                });
+                //$.each(clodData, function (index, cData) {
+                //    if (cData.id == _id) {
+                //        _existingEdittedRecord = cData;
+                //        _isDataFound = true;
+                //        return false;
+                //    }
+                //});
             }
 
             //deliverDate
-            if (_existingEdittedRecord.id != null) {
+            if (_existingEdittedRecord.id == 0) {
                 _existingEdittedRecord.id = GetTempNonLoadId();
             }
-            
+
+            //_existingEdittedRecord.id = GetTempNonLoadId();
+
             _existingEdittedRecord.appSheetUser = GetUserName();
             _existingEdittedRecord.ltNumber = "Non-Load";
             _existingEdittedRecord.vrn = "";
             _existingEdittedRecord.haulier = "";
             _existingEdittedRecord.source = "";
-            _existingEdittedRecord.operator = $("#operatorName").val();
+           // _existingEdittedRecord.operator = $("#operatorName").val();
             _existingEdittedRecord.note = "";
             _existingEdittedRecord.rejComments = $("#comments").val();
             _existingEdittedRecord.image1 = $("#hfPic1").val();
@@ -270,6 +273,9 @@ function GetTempNonLoadId() {
         let _length = Object.keys(nonLoadEntries.shareInfo[0]).length;
         _id = _length + 1;
     }
+    else {
+        _id = 1;
+    }
 
     return _id;
 }
@@ -283,20 +289,28 @@ function GetUserName() {
 }
 
 function fnFillNonLoadDetailToEdit() {
-    var fDetail = window.sessionStorage.getItem('NonLoadEntryDetail');
 
-    if (fDetail.length > 0) {
-        var _loadDetail = JSON.parse(fDetail);
+    if (window.sessionStorage.hasOwnProperty('NonLoadEntryDetail')) {
+        var fDetail = window.sessionStorage.getItem('NonLoadEntryDetail');
 
-        $("#hdNonLoadId").val(_loadDetail.id);
-        $("#comments").val(_loadDetail.rejComments);
+        if (fDetail.length > 0) {
+            var _loadDetail = JSON.parse(fDetail);
 
-        $("#note").val(_loadDetail.note);
+            $("#hdNonLoadId").val(_loadDetail.id);
+            $("#comments").val(_loadDetail.rejComments);
 
-        fnManageNonLoadEntryPictures(_loadDetail);
-        fnFillNonLoadRejectionReasonData(_loadDetail);
-        fnFillNonLoadPlantOperatorData(_loadDetail)
+            $("#note").val(_loadDetail.note);
+
+            fnManageNonLoadEntryPictures(_loadDetail);
+            fnFillNonLoadRejectionReasonDataFromLoad(_loadDetail);
+            fnFillNonLoadPlantOperatorDataFromLoad(_loadDetail)
+        }
     }
+    else {
+        fnFillNonLoadRejectionReasonData();
+        fnFillNonLoadPlantOperatorData();
+    }
+
 }
 
 function fnManageNonLoadEntryPictures(oLoad) {
@@ -334,15 +348,62 @@ function fnManageNonLoadEntryPictures(oLoad) {
 
 
 }
-
-function fnFillNonLoadRejectionReasonData(oLoad) {
+function fnFillNonLoadRejectionReasonData() {
     var muliRejReason = window.localStorage.getItem('isMuliRejectionReason');
     var _isMuliRejectionReason = JSON.parse(muliRejReason);
 
     var _rejectionReasons = window.localStorage.getItem('loadRejectionReasonData');
     if (_rejectionReasons.length > 0) {
         var rejectionReasonData = JSON.parse(_rejectionReasons);
-        var _rReasonOptions = "";
+        var _rReasonOptions = "<option value='-1'>Select Reason</option>";
+        $.each(rejectionReasonData, function (index, _rejectionReason) {
+
+            /// For Editing we only check for "NonLoad" Fuel Group Reection Reasons as per the logged in user 
+            if (_rejectionReason.fuelGroup == "NonLoad") {
+                _rReasonOptions = _rReasonOptions + "<option value='" + _rejectionReason.listOrderID + "'>" + _rejectionReason.rejectReason + "</option>";
+            }
+            /// Task #11 end
+        });
+
+        if (_isMuliRejectionReason) {
+            var rejectReasonSelect = $("#multiRejectedReasons");
+            rejectReasonSelect.append(_rReasonOptions);
+            rejectReasonSelect.selectmenu();
+            rejectReasonSelect.selectmenu('refresh', true);
+        }
+        else {
+            var rejectReasonSelect = $("#rejectionReason");
+            rejectReasonSelect.append(_rReasonOptions);
+            rejectReasonSelect.selectmenu();
+            rejectReasonSelect.selectmenu('refresh', true);
+        }
+
+    }
+}
+
+function fnFillNonLoadPlantOperatorData(oLoad) {
+    var _plantOperator = window.localStorage.getItem('plantOperatorsData');
+    if (_plantOperator.length > 0) {
+        var plantOperatorData = JSON.parse(_plantOperator);
+        var _plantOperatorOptions = "<option value='-1'>Select Plant Operator</option>";
+
+        $.each(plantOperatorData, function (index, _pOperator) {
+            _plantOperatorOptions = _plantOperatorOptions + "<option value='" + index + "'>" + _pOperator.operator + "</option>";
+        });
+
+        $('#operatorName').append(_plantOperatorOptions);
+    }
+}
+
+function fnFillNonLoadRejectionReasonDataFromLoad(oLoad) {
+    var muliRejReason = window.localStorage.getItem('isMuliRejectionReason');
+    var _isMuliRejectionReason = JSON.parse(muliRejReason);
+
+    var _rejectionReasons = window.localStorage.getItem('loadRejectionReasonData');
+    if (_rejectionReasons.length > 0) {
+        var rejectionReasonData = JSON.parse(_rejectionReasons);
+        
+        var _rReasonOptions = "<option value='-1'>Select Reason</option>";
         $.each(rejectionReasonData, function (index, _rejectionReason) {
 
             /// For Editing we only check for "NonLoad" Fuel Group Reection Reasons as per the logged in user 
@@ -396,7 +457,7 @@ function fnFillNonLoadRejectionReasonData(oLoad) {
     }
 }
 
-function fnFillNonLoadPlantOperatorData(oLoad) {
+function fnFillNonLoadPlantOperatorDataFromLoad(oLoad) {
     var _plantOperator = window.localStorage.getItem('plantOperatorsData');
     if (_plantOperator.length > 0) {
         var plantOperatorData = JSON.parse(_plantOperator);
@@ -446,7 +507,7 @@ function fnGetDropdownValues(oLoad) {
     }
     else {
         var _rejReasonIndex = $('#rejectionReason option:selected').val();
-        if (_plantOperatorIndex == -1) {
+        if (_rejReasonIndex == -1) {
             oLoad.rejReasons = null;
         }
         else {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="com.eco2uk.myapp800450" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="com.eco2uk.loadrejection800450" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1">
   <name>Load Rejection</name>
   <description>This Load Rejection App will be a simplified version to the one that has already been developed. The app is for a new plant and possibly other plants operating along the same pattern.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">Rohiet - Miglani Software Services</author>

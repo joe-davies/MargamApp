@@ -49,12 +49,21 @@ var storage = window.localStorage;
     //}
 
     function fnLoginUser(e) {
-        window.plugins.spinnerDialog.show("Validate User", "Loading...", true);
+       window.plugins.spinnerDialog.show("Validate User", "Loading...", true);
 
         var userId = $("#txtUserName").val();
         var password = $("#txtPassword").val();
        // var _userName = "";
         var _token = "";
+
+        if (userId.length <= 0) {
+            alert("User Id can't be blank or empty");
+            return false;
+        }
+        if (password.length <= 0) {
+            alert("Password can't be blank or empty");
+            return false;
+        }
 
         if (userId.length > 0 && password.length > 0) {
             var uri = 'https://apitest.eco2cift.co.uk/api/Users/ValidateAndGetName?EmailId=' + userId + '&Password=' + password;
@@ -63,7 +72,7 @@ var storage = window.localStorage;
             $.ajax({
                 type: 'GET',
                 url: serviceUrl,
-                beforeSend: function (xhr) {
+                beforeSend: function (xhr, textStatus, errorThrown) {
                     xhr.setRequestHeader("Authorization", "Bearer " + "something");
                 },
                 success: function (data) {

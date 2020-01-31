@@ -218,7 +218,7 @@ var app = {
             _existingEdittedRecord.ltNumber = $("#ltNumber").val();
             _existingEdittedRecord.vrn = $("#regNo").val();
             //_existingEdittedRecord.subHaulier = $("#subHaulier").val();
-            _existingEdittedRecord.operator = $("#operatorName").val();
+           // _existingEdittedRecord.operator = $("#operatorName").val();
             _existingEdittedRecord.note = $("#note").val();
             _existingEdittedRecord.rejComments = $("#comments").val();
             _existingEdittedRecord.image1 = $("#hfPic1").val();
@@ -338,7 +338,7 @@ function fnFillRejectionReasonData(oLoad) {
     var _rejectionReasons = window.localStorage.getItem('loadRejectionReasonData');
     if (_rejectionReasons.length > 0) {
         var rejectionReasonData = JSON.parse(_rejectionReasons);
-        var _rReasonOptions = "";
+        var _rReasonOptions = "<option value='-1'>Select Reason</option>";
         $.each(rejectionReasonData, function (index, _rejectionReason) {
 
             /// For Editing we only check for "Load" Fuel Group Reection Reasons as per the logged in user 

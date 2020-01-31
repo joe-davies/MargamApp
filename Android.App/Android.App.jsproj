@@ -475,6 +475,7 @@
     <Content Include="plugins\cordova-plugin-whitelist\RELEASENOTES.md" />
     <Content Include="plugins\cordova-plugin-whitelist\src\android\WhitelistPlugin.java" />
     <Content Include="plugins\fetch.json" />
+    <Content Include="res\icons\android\eco2.png" />
     <Content Include="www\cordova.js" />
     <Content Include="www\css\images\ajax-loader.gif" />
     <Content Include="www\css\images\icons-png\action-black.png" />

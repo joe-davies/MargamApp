@@ -58,9 +58,9 @@
     },
     countNonLoadEntryData: function countNonLoadEntryData() {
         if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
-            var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
-            var nonLoadData = JSON.parse(notifiedData);
-            $("#lblNewBadge").text(notifiedFloData.length);
+            let nonLoad = window.localStorage.getItem('nonLoadEntryData');
+            let nonLoadData = JSON.parse(nonLoad);
+            $("#lblNewBadge").text(nonLoadData.length);
         }
         else {
             $("#lblNewBadge").text("0");

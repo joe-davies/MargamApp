@@ -27,8 +27,8 @@ var app_nonLoadEntryList = {
         var html = ""; //" <tr> <td> <div class='switch switch-info switch-inline'> <input id='sw1' type='checkbox' checked> <label for='sw1'></label> </div> </td>  <td> <span class='rating block mn pull-left'> 444444 </span> </td>  <td> Sony Inc </td>  </tr>";
 
         if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
-            let nonLoadData = window.localStorage.getItem('nonLoadEntryData');
-            let nonLoadEntries = JSON.parse(nonLoadData);
+            var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+            var nonLoadEntries = JSON.parse(nonLoadData);
 
             $.each(nonLoadEntries, function (index, eData) {
                 var validate_flow = {};
@@ -47,7 +47,7 @@ var app_nonLoadEntryList = {
 
                 //html = html + "<td><div class='switch switch-info switch-inline'> <input id='sw_" + eData.sampleID + "' type='checkbox' class='cbx_dynamic'> <label class='rOption' for='sw_" + eData.sampleID + "'></label> </div></td>";
                 html = html + "<td><span class='rating block mn pull-left'> " + eData.operator + " </span></td>";
-                html = html + "<td><span class='rating block mn pull-left'> " + eData.rejReasons + " </span></td>";
+                //html = html + "<td><span class='rating block mn pull-left'> " + eData.rejReasons + " </span></td>";
                 html = html + "<td>" + validate_flow.lblHtml + "</td>";
                 html = html + "<td class = 'tdView' id = 'cView_" + eData.id + "'><i class='fa fa-edit'></i></td>";
                 html = html + "</tr>";
@@ -85,8 +85,8 @@ var app_nonLoadEntryList = {
     },
     countNonLoadEntryData: function countNonLoadEntryData() {
         if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
-            let nonLoad = window.localStorage.getItem('nonLoadEntryData');
-            let nonLoadData = JSON.parse(nonLoad);
+            var nonLoad = window.localStorage.getItem('nonLoadEntryData');
+            var nonLoadData = JSON.parse(nonLoad);
             $("#lblNewBadge").text(nonLoadData.length);
         }
         else {
@@ -106,7 +106,7 @@ var app_nonLoadEntryList = {
             }
         }
         if (_selectredFlowIds.length > 0) {
-            window.plugins.spinnerDialog.show("Updating Data", "This will take a few moments - Please wait", true);
+            window.plugins.spinnerDialog.show("Initializing  Non-Load Insert", "Please wait", true);
             app_nonLoadEntryList.InitializeFlowUpdate(_selectredFlowIds);
         }
         else {
@@ -121,19 +121,27 @@ var app_nonLoadEntryList = {
         //var _flowDetailsFromEdittedList = {};
         //var isDataPostedOnTheServer = true;
 
-        var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
-        var nonLoadEntries = JSON.parse(nonLoadData);
-        var _selectedFlow = [];
-        $.each(arr_flowIds, function (i, eFlowId) {
-            $.each(nonLoadEntries, function (index, eData) {
-                if (eData.sampleID == eFlowId) {
-                    _selectedFlow.push(eData);
-                }
+        try {
+            var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+            var nonLoadEntries = JSON.parse(nonLoadData);
+            var _selectedFlow = [];
+            $.each(arr_flowIds, function (i, e_id) {
+                $.each(nonLoadEntries, function (index, eData) {
+                    if (eData.id == e_id) {
+                        _selectedFlow.push(eData);
+                    }
+                });
             });
-        });
 
 
-        app_nonLoadEntryList.updateFuelFlowToCloudServer(_selectedFlow, 0);
+            app_nonLoadEntryList.updateFuelFlowToCloudServer(_selectedFlow, 0);
+        }
+        catch (err) {
+            alert("Error Occored!");
+            alert(err);
+            window.plugins.spinnerDialog.hide();
+        }
+        
         //        app_nonLoadEntryList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
 
         //if (window.localStorage.hasOwnProperty('notifiedFlowData')) {
@@ -209,38 +217,38 @@ var app_nonLoadEntryList = {
 
 
     },
-    manageNotifiedList: function manageNotifiedList(updatedNotifyList) {
-        if (window.localStorage.hasOwnProperty('notifiedLoadFlowData')) {
-            var arrNotifyList = [];
-            var notifiedData = window.localStorage.getItem('notifiedLoadFlowData');
-            var notifiedFloData = JSON.parse(notifiedData);
+    //manageNotifiedList: function manageNotifiedList(updatedNotifyList) {
+    //    if (window.localStorage.hasOwnProperty('notifiedLoadFlowData')) {
+    //        var arrNotifyList = [];
+    //        var notifiedData = window.localStorage.getItem('notifiedLoadFlowData');
+    //        var notifiedFloData = JSON.parse(notifiedData);
 
-            ////  loop through notifiedFlowData and check weather existing records is in new array or not, if not exist then add them to array else do nothing and go to next record
-            $.each(notifiedFloData, function (_i, _existingNotifiedRecord) {
-                var _isexistInNewCollection = false;
-                $.each(updatedNotifyList, function (i, _newNotifiedRecord) {
-                    if (_newNotifiedRecord.sampleID == _existingNotifiedRecord.sampleID) {
-                        arrNotifyList.push(_newNotifiedRecord);
-                    }
-                    else {
-                        arrNotifyList.push(_existingNotifiedRecord);
-                    }
-                });
-            });
-            window.localStorage.setItem('notifiedLoadFlowData', JSON.stringify(arrNotifyList));
-        }
-        else {
-            window.localStorage.setItem('notifiedLoadFlowData', JSON.stringify(updatedNotifyList));
-        }
-    },
-    removeFlowFromEdittedList: function removeFlowFromEdittedList(e_flowId) {
+    //        ////  loop through notifiedFlowData and check weather existing records is in new array or not, if not exist then add them to array else do nothing and go to next record
+    //        $.each(notifiedFloData, function (_i, _existingNotifiedRecord) {
+    //            var _isexistInNewCollection = false;
+    //            $.each(updatedNotifyList, function (i, _newNotifiedRecord) {
+    //                if (_newNotifiedRecord.sampleID == _existingNotifiedRecord.sampleID) {
+    //                    arrNotifyList.push(_newNotifiedRecord);
+    //                }
+    //                else {
+    //                    arrNotifyList.push(_existingNotifiedRecord);
+    //                }
+    //            });
+    //        });
+    //        window.localStorage.setItem('notifiedLoadFlowData', JSON.stringify(arrNotifyList));
+    //    }
+    //    else {
+    //        window.localStorage.setItem('notifiedLoadFlowData', JSON.stringify(updatedNotifyList));
+    //    }
+    //},
+    removeFlowFromNonLoadData: function removeFlowFromNonLoadData(e_id) {
         var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
         var nonLoadEntries = JSON.parse(nonLoadData);
 
         var updatednonLoadEntries = [];
         //$.each(fArr, function (i, eFlowId) {
         $.each(nonLoadEntries, function (index, eData) {
-            if (eData.sampleID != e_flowId) {
+            if (eData.id != e_id) {
                 updatednonLoadEntries.push(eData);
             }
         });
@@ -290,9 +298,12 @@ var app_nonLoadEntryList = {
     },
     updateFuelFlowToCloudServer: function updateFuelFlowToCloudServer(arrSelectedItem, arrIndex) {
 
-        var oLoadEntry = arrSelectedItem[arrIndex];
-        var url = 'https://apitest.eco2cift.co.uk/api/Settings/UpdateLoadEntry';
+        window.plugins.spinnerDialog.show("Updating Data", "This will take a few moments - Please wait", true);
 
+        var oLoadEntry = arrSelectedItem[arrIndex];
+        var url = 'https://apitest.eco2cift.co.uk/api/Settings/AddNonLoadEntry';
+
+        
         var serviceUrl = encodeURI(url);
         var nLoadEntry = customLoadEntry;
         nLoadEntry.sampleID = oLoadEntry.sampleID;
@@ -301,11 +312,10 @@ var app_nonLoadEntryList = {
         nLoadEntry.note = oLoadEntry.note;
         nLoadEntry.deliverDate = oLoadEntry.deliverDate;
         nLoadEntry.haulier = oLoadEntry.haulier;
-        nLoadEntry.subHaulier = oLoadEntry.source;
+        nLoadEntry.source = oLoadEntry.source;
         nLoadEntry.vrn = oLoadEntry.vrn;
         nLoadEntry.operator = oLoadEntry.operator;
         nLoadEntry.rejReasons = oLoadEntry.rejReasons;
-
         nLoadEntry.rejComments = oLoadEntry.rejComments;
 
         nLoadEntry.image1 = oLoadEntry.image1;
@@ -317,46 +327,48 @@ var app_nonLoadEntryList = {
 
         nLoadEntry.dateTimeStamp = oLoadEntry.dateTimeStamp;
 
-        var base64Image1 = "";
+        var nl_base64Image1 = "";
         if (nLoadEntry.image1 != null && nLoadEntry.image1.length > 0) {
-            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image1, function (base64Image1) {
-                nLoadEntry.image1Base64String = base64Image1.toString().split(',')[1];
+            app_nonLoadEntryList.getFileContentAsbase64(nLoadEntry.image1, function (nl_base64Image1) {
+                nLoadEntry.image1base64String = nl_base64Image1.toString().split(',')[1];                
             });
         }
 
         if (nLoadEntry.image2 != null && nLoadEntry.image2.length > 0) {
-            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image2, function (base64Image2) {
-                nLoadEntry.image2Base64String = base64Image2.toString().split(',')[1];
+            app_nonLoadEntryList.getFileContentAsbase64(nLoadEntry.image2, function (nl_base64Image2) {
+                nLoadEntry.image2base64String = nl_base64Image2.toString().split(',')[1];
             });
         }
         if (nLoadEntry.image3 != null && nLoadEntry.image3.length > 0) {
-            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image3, function (base64Image3) {
-                nLoadEntry.image3Base64String = base64Image3.toString().split(',')[1];
+            app_nonLoadEntryList.getFileContentAsbase64(nLoadEntry.image3, function (nl_base64Image3) {
+                nLoadEntry.image3base64String = nl_base64Image3.toString().split(',')[1];
             });
         }
         if (nLoadEntry.image4 != null && nLoadEntry.image4.length > 0) {
 
-            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image4, function (base64Image4) {
-                nLoadEntry.image4Base64String = base64Image4.toString().split(',')[1];
+            app_nonLoadEntryList.getFileContentAsbase64(nLoadEntry.image4, function (nl_base64Image4) {
+                nLoadEntry.image4base64String = nl_base64Image4.toString().split(',')[1];
             });
         }
         if (nLoadEntry.image5 != null && nLoadEntry.image5.length > 0) {
 
-            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image5, function (base64Image5) {
-                nLoadEntry.image5Base64String = base64Image5.toString().split(',')[1];
+            app_nonLoadEntryList.getFileContentAsbase64(nLoadEntry.image5, function (nl_base64Image5) {
+                nLoadEntry.image5base64String = nl_base64Image5.toString().split(',')[1];
             });
         }
 
         if (nLoadEntry.image6 != null && nLoadEntry.image6.length > 0) {
 
-            app_nonLoadEntryList.getFileContentAsBase64(nLoadEntry.image6, function (base64Image6) {
-                nLoadEntry.image6Base64String = base64Image6.toString().split(',')[1];
+            app_nonLoadEntryList.getFileContentAsbase64(nLoadEntry.image6, function (nl_base64Image6) {
+                nLoadEntry.image6base64String = nl_base64Image6.toString().split(',')[1];
             });
         }
 
+       // window.plugins.spinnerDialog.show("Checking Network Connection", "Plase wait", true);
         //validate Network Connection During Process
         validateNetworkConnectionDuringProcess();
 
+        
         var millisecondsToWait_UploadImage = 6000;
         setTimeout(function () {
             try {
@@ -371,12 +383,12 @@ var app_nonLoadEntryList = {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
 
-                            app_nonLoadEntryList.validateSync(nLoadEntry.sampleID);
+                           // app_nonLoadEntryList.validateSync(nLoadEntry.sampleID);
                             var _lastSynced = new Date().toLocaleString('en-GB');
                             nLoadEntry.dateTimeStamp = _lastSynced;
-                            app_nonLoadEntryList.removeFlowFromEdittedList(nLoadEntry.sampleID);
+                            app_nonLoadEntryList.removeFlowFromNonLoadData(oLoadEntry.id);
                             //oNotifiedList.push(nLoadEntry);
-                            window.localStorage.setItem('lastSyncedDate_LoadRejection', _lastSynced.toString());
+                           // window.localStorage.setItem('lastSyncedDate_LoadRejection', _lastSynced.toString());
 
                             // check ifis there any new record in the selected array then process it.
                             if (arrIndex < (arrSelectedItem.length - 1)) {
@@ -389,7 +401,7 @@ var app_nonLoadEntryList = {
                                 // app_nonLoadEntryList.manageNotifiedList(oNotifiedList);
                                 window.plugins.spinnerDialog.hide();
                                 alert("Synchronisation successful");
-                                window.location.href = "notifiedflowlist.html";
+                                window.location.href = "dashboard.html";
                             }
                         }
                         else if (xhr.status === 502) {
@@ -400,6 +412,8 @@ var app_nonLoadEntryList = {
                         else {
                             var eMessage = xhr.responseText;
                             if (eMessage.length > 0) {
+                                alert("Some error occoured!");
+                                alert(xhr.status);
                                 alert(eMessage);
                             }
 
@@ -448,7 +462,7 @@ var app_nonLoadEntryList = {
         }
 
     },
-    getFileContentAsBase64: function getFileContentAsBase64(path, callback) {
+    getFileContentAsbase64: function getFileContentAsbase64(path, callback) {
         window.resolveLocalFileSystemURL(path, gotFile, fail);
 
         function fail(e) {
@@ -520,7 +534,7 @@ function ValidateFlow(ovFlow) {
     //    }
     //}
     if (ovFlow.isValidFlow === true) {
-        if (ovFlow.oLoadEntry.operator.length <= 0) {
+        if (ovFlow.oLoadEntry.operator == null) {
             ovFlow.isValidFlow = false;
             ovFlow.lblHtml = "<span class='label label-danger mr5 mb10 ib lh15'>*Operator Name</span>";
         }

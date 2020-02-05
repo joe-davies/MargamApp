@@ -81,8 +81,8 @@ var storage = window.localStorage;
                 },
                 error: function (xhr) { // if error occured
                     alert("Authorization Error: Login failed");
-                    //alert(xhr.statusText);
-                    //alert(xhr.responseText);
+                    alert(xhr.statusText);
+                    alert(xhr.responseText);
                 },
                 complete: function () {
                     if (_token.length > 0) {

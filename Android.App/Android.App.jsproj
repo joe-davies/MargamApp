@@ -86,6 +86,7 @@
     <Content Include="bower.json" />
     <Content Include="build.json" />
     <Content Include="config.xml" />
+    <Content Include="www\cordova_plugins.js" />
     <Content Include="package.json" />
     <Content Include="plugins\android.json" />
     <Content Include="plugins\cordova-plugin-camera\appium-tests\android\android.spec.js" />

@@ -427,8 +427,7 @@ function fnGetDropdownValues(oLoad) {
 
     var _plantOperatorIndex = $('#operatorName option:selected').val();
     if (_plantOperatorIndex == -1) {
-        alert("Please Select Operator");
-        return false;
+        oLoad.operator = null;
     }
     else {
         oLoad.operator = $('#operatorName option:selected').text();

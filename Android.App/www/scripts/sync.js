@@ -2,6 +2,9 @@
     var _token = window.localStorage.getItem('loadEntryUserDetails');
     var _encodedData = window.atob(_token);
     var emailId = _encodedData.split('~')[0];
+
+    //alert("syncDataFromCloudServer");
+
     fnManageLocalStorageKeys();
 
     var url = 'https://apitest.eco2cift.co.uk/api/Settings/GetLoadRejectionDataByUserId?UserId=' + emailId;
@@ -23,6 +26,10 @@
         },
         error: function (jqXHR, exception) {
             alert("syncDataFromCloudServer");
+            alert("emailId");
+            alert(jqXHR.statusText);
+            alert(jqXHR.responseText);
+            alert(_token);
             isDataSynced = false;
         },
         complete: function () {

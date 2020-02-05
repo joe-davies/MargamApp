@@ -266,11 +266,11 @@ var app = {
 }
 
 function GetTempNonLoadId() {
-    let _id = 0;
+    var _id = 0;
     if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
-        let nonLoadData = window.localStorage.getItem('nonLoadEntryData');
-        let nonLoadEntries = JSON.parse(nonLoadData);
-        let _length = Object.keys(nonLoadEntries.shareInfo[0]).length;
+        var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+        var nonLoadEntries = JSON.parse(nonLoadData);
+        var _length = Object.keys(nonLoadEntries).length;
         _id = _length + 1;
     }
     else {
@@ -343,6 +343,12 @@ function fnManageNonLoadEntryPictures(oLoad) {
         $("#imgPic5").attr("src", oLoad.image5);
         $("#lblPic5").append(oLoad.image5);
         $("#hfPic5").val(oLoad.image5);
+        $("#btnRemoveNonLoadPic5").show();
+    }
+    if (oLoad.image6 != null && oLoad.image6.length > 0) {
+        $("#imgPic5").attr("src", oLoad.image6);
+        $("#lblPic5").append(oLoad.image6);
+        $("#hfPic5").val(oLoad.image6);
         $("#btnRemoveNonLoadPic5").show();
     }
 
@@ -490,8 +496,7 @@ function fnGetDropdownValues(oLoad) {
 
     var _plantOperatorIndex = $('#operatorName option:selected').val();
     if (_plantOperatorIndex == -1) {
-        alert("Please Select Operator");
-        return false;
+        oLoad.operator = null;
     }
     else {
         oLoad.operator = $('#operatorName option:selected').text();

@@ -85,8 +85,8 @@ var app_edittedFlowList = {
     },
     countNonLoadEntryData: function countNonLoadEntryData() {
         if (window.localStorage.hasOwnProperty('nonLoadEntryData')) {
-            let nonLoad = window.localStorage.getItem('nonLoadEntryData');
-            let nonLoadData = JSON.parse(nonLoad);
+            var nonLoad = window.localStorage.getItem('nonLoadEntryData');
+            var nonLoadData = JSON.parse(nonLoad);
             $("#lblNewBadge").text(nonLoadData.length);
         }
         else {
@@ -106,7 +106,7 @@ var app_edittedFlowList = {
             }
         }
         if (_selectredFlowIds.length > 0) {
-            window.plugins.spinnerDialog.show("Updating Data", "This will take a few moments - Please wait", true);
+            window.plugins.spinnerDialog.show("Initializing Syncing", "Please wait", true);
             app_edittedFlowList.InitializeFlowUpdate(_selectredFlowIds);
         }
         else {
@@ -121,19 +121,29 @@ var app_edittedFlowList = {
         //var _flowDetailsFromEdittedList = {};
         //var isDataPostedOnTheServer = true;
 
-        var editedData = window.localStorage.getItem('editedLoadEntryData');
-        var editedFloData = JSON.parse(editedData);
-        var _selectedFlow = [];
-        $.each(arr_flowIds, function (i, eFlowId) {
-            $.each(editedFloData, function (index, eData) {
-                if (eData.sampleID == eFlowId) {
-                    _selectedFlow.push(eData);
-                }
+        try {
+            var editedData = window.localStorage.getItem('editedLoadEntryData');
+            var editedFloData = JSON.parse(editedData);
+            var _selectedFlow = [];
+            $.each(arr_flowIds, function (i, eFlowId) {
+                $.each(editedFloData, function (index, eData) {
+                    if (eData.sampleID == eFlowId) {
+                        _selectedFlow.push(eData);
+                    }
+                });
             });
-        });
+
+            app_edittedFlowList.updateFuelFlowToCloudServer(_selectedFlow, 0);
+        }
+        catch (err) {
+            alert("Error Occored!");
+            alert(err);
+            window.plugins.spinnerDialog.hide();
+        }
+        
 
 
-        app_edittedFlowList.updateFuelFlowToCloudServer(_selectedFlow, 0);
+        
 //        app_edittedFlowList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
 
         //if (window.localStorage.hasOwnProperty('notifiedFlowData')) {
@@ -290,6 +300,8 @@ var app_edittedFlowList = {
     },
     updateFuelFlowToCloudServer: function updateFuelFlowToCloudServer(arrSelectedItem, arrIndex) {
 
+        window.plugins.spinnerDialog.show("Updating Data", "This will take a few moments - Please wait", true);
+
         var oLoadEntry = arrSelectedItem[arrIndex];
         var url = 'https://apitest.eco2cift.co.uk/api/Settings/UpdateLoadEntry';
 
@@ -320,17 +332,20 @@ var app_edittedFlowList = {
         var base64Image1 = "";
         if (nLoadEntry.image1 != null && nLoadEntry.image1.length > 0) {
             app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image1, function (base64Image1) {
+                //window.plugins.spinnerDialog.show("Managing Data", "Image 1", true);
                 nLoadEntry.image1Base64String = base64Image1.toString().split(',')[1];
             });
         }
 
         if (nLoadEntry.image2 != null && nLoadEntry.image2.length > 0) {
             app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image2, function (base64Image2) {
+              //  window.plugins.spinnerDialog.show("Managing Data", "Image 2", true);
                 nLoadEntry.image2Base64String = base64Image2.toString().split(',')[1];
             });
         }
         if (nLoadEntry.image3 != null && nLoadEntry.image3.length > 0) {
             app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image3, function (base64Image3) {
+           //     window.plugins.spinnerDialog.show("Managing Data", "Image 3", true);
                 nLoadEntry.image3Base64String = base64Image3.toString().split(',')[1];
             });
         }
@@ -354,8 +369,11 @@ var app_edittedFlowList = {
             });
         }
 
+      //  window.plugins.spinnerDialog.show("Checking Network Connection", "Plase wait", true);
         //validate Network Connection During Process
         validateNetworkConnectionDuringProcess();
+
+        //window.plugins.spinnerDialog.show("Updating Data", "This will take a few moments - Please wait", true);
 
         var millisecondsToWait_UploadImage = 6000;
         setTimeout(function () {
@@ -520,7 +538,7 @@ function ValidateFlow(ovFlow) {
         }
     }
     if (ovFlow.isValidFlow === true) {
-        if (ovFlow.oLoadEntry.operator.length <= 0) {
+        if (ovFlow.oLoadEntry.operator == null) {
             ovFlow.isValidFlow = false;
             ovFlow.lblHtml = "<span class='label label-danger mr5 mb10 ib lh15'>*Operator Name</span>";
         }

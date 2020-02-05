@@ -66,7 +66,7 @@ public class Notification extends CordovaPlugin {
     private static final long BEEP_WAIT_TINE = 100;
 
     public int confirmResult = -1;
-    public ProgressDialog spinnerDialog = null;
+    public ProgressDialog window.plugins.spinnerDialog = null;
     public ProgressDialog progressDialog = null;
 
     /**
@@ -403,26 +403,26 @@ public class Notification extends CordovaPlugin {
      * @param message   The message of the dialog
      */
     public synchronized void activityStart(final String title, final String message) {
-        if (this.spinnerDialog != null) {
-            this.spinnerDialog.dismiss();
-            this.spinnerDialog = null;
+        if (this.window.plugins.spinnerDialog != null) {
+            this.window.plugins.spinnerDialog.dismiss();
+            this.window.plugins.spinnerDialog = null;
         }
         final Notification notification = this;
         final CordovaInterface cordova = this.cordova;
         Runnable runnable = new Runnable() {
             public void run() {
-                notification.spinnerDialog = createProgressDialog(cordova); // new ProgressDialog(cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-                notification.spinnerDialog.setTitle(title);
-                notification.spinnerDialog.setMessage(message);
-                notification.spinnerDialog.setCancelable(true);
-                notification.spinnerDialog.setIndeterminate(true);
-                notification.spinnerDialog.setOnCancelListener(
+                notification.window.plugins.spinnerDialog = createProgressDialog(cordova); // new ProgressDialog(cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                notification.window.plugins.spinnerDialog.setTitle(title);
+                notification.window.plugins.spinnerDialog.setMessage(message);
+                notification.window.plugins.spinnerDialog.setCancelable(true);
+                notification.window.plugins.spinnerDialog.setIndeterminate(true);
+                notification.window.plugins.spinnerDialog.setOnCancelListener(
                         new DialogInterface.OnCancelListener() {
                             public void onCancel(DialogInterface dialog) {
-                                notification.spinnerDialog = null;
+                                notification.window.plugins.spinnerDialog = null;
                             }
                         });
-                notification.spinnerDialog.show();
+                notification.window.plugins.spinnerDialog.show();
             }
         };
         this.cordova.getActivity().runOnUiThread(runnable);
@@ -432,9 +432,9 @@ public class Notification extends CordovaPlugin {
      * Stop spinner.
      */
     public synchronized void activityStop() {
-        if (this.spinnerDialog != null) {
-            this.spinnerDialog.dismiss();
-            this.spinnerDialog = null;
+        if (this.window.plugins.spinnerDialog != null) {
+            this.window.plugins.spinnerDialog.dismiss();
+            this.window.plugins.spinnerDialog = null;
         }
     }
 

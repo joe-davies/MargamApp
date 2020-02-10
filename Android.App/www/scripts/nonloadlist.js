@@ -303,7 +303,6 @@ var app_nonLoadEntryList = {
         var oLoadEntry = arrSelectedItem[arrIndex];
         var url = 'https://apitest.eco2cift.co.uk/api/Settings/AddNonLoadEntry';
 
-        
         var serviceUrl = encodeURI(url);
         var nLoadEntry = customLoadEntry;
         nLoadEntry.sampleID = oLoadEntry.sampleID;

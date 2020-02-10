@@ -8412,7 +8412,7 @@ mark,
 .content-header {
   text-align: center;
   margin-top: 15px;
-  margin-bottom: 40px;
+  /*margin-bottom: 40px; */
 }
 .content-header h1,
 .content-header h2,
@@ -18417,7 +18417,7 @@ body.sb-top #toggle_sidemenu_t {
 #content.table-layout > div,
 #content.table-layout > section {
   vertical-align: top;
-  padding: 25px 20px 50px;
+/*  padding: 25px 20px 50px; */
 }
 #content.table-layout > aside {
   vertical-align: top;

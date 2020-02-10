@@ -124,22 +124,22 @@
 
                             <div class="panel heading-border">
                                 <div class="panel-body bg-light">
-                                    <div class="section-divider mb40" id="spy1">
+                                    <div class="section-divider"  id="spy1">
                                         <span>Edit Load Entry</span>
                                     </div>
                                     <!-- .section-divider -->
                                     <table id="tblOuter" style="table-layout:fixed" class="table-responsive">
                                         <tr style="margin-top:5%">
                                             <td style="width:35%">
-                                                Planned Deliveries Date
+                                                Delivery Date
                                             </td>
                                             <td style="width:65%">
                                                 <input type="text" name="plannedDeliveryDate" id="plannedDeliveryDate" class="gui-input" readonly>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <td colspan="2">&nbsp;</td>
-                                        </tr>
+                                        </tr>-->
                                         <tr>
                                             <td style="width:35%">
                                                 LT Number
@@ -148,9 +148,9 @@
                                                 <input type="text" name="ltNumber" id="ltNumber" class="gui-input" readonly>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <td colspan="2">&nbsp;</td>
-                                        </tr>
+                                        </tr>-->
                                         <tr style="margin-top:5%">
                                             <td style="width:35%">
                                                 Haulier
@@ -159,21 +159,9 @@
                                                 <input type="text" name="haulier" id="haulier" class="gui-input" readonly>
                                             </td>
                                         </tr>
-                                        <tr>
+                                          <!--<tr>
                                             <td colspan="2">&nbsp;</td>
-                                        </tr>
-                                        <!--<tr>
-                                            <td style="width:35%">
-                                                Sub Haulier
-                                            </td>
-                                            <td style="width:65%">
-                                                <input type="text" name="subHaulier" id="subHaulier" class="gui-input" readonly>
-                                                
-                                            </td>
                                         </tr>-->
-                                        <tr>
-                                            <td colspan="2">&nbsp;</td>
-                                        </tr>
                                         <tr>
                                             <td style="width:35%">
                                                 Reg No.*
@@ -182,82 +170,31 @@
                                                 <input type="text" name="regNo" id="regNo" class="gui-input" readonly>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <td colspan="2">&nbsp;</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width:35%">
-                                                Note
-                                            </td>
-                                            <td style="width:65%">
-                                                <input type="text" name="note" id="note" class="gui-input">
-                                            </td>
-                                        </tr>
-                                        <tr>
+                                        </tr>-->
+                                         
+                                        <!--<tr>
                                             <td colspan="2">&nbsp;</td>
-                                        </tr>
+                                        </tr>-->
 
 
                                         <tr>
                                             <td style="width:35%">
-                                                Operator Name
+                                                Operator
                                             </td>
                                             <td style="width:65%">
                                                 <!--<input type="text" name="operatorName" id="operatorName" class="gui-input">-->
                                                 <select id="operatorName" name="operatorName" class="form-control"></select>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="2">&nbsp;</td>
-                                        </tr>
                                         <!--<tr>
-            <td style="width:35%">
-                Fuel Type
-            </td>
-            <td style="width:65%">
-                <input type="text" name="fuelType" id="fuelType" class="gui-input" readonly>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">&nbsp;</td>
-        </tr>
-        <tr>
-            <td style="width:35%">
-                Fuel Size*
-            </td>
-            <td style="width:65%">
-                <input type="text" name="fuelSize" id="fuelSize" class="gui-input" readonly>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">&nbsp;</td>
-        </tr>
-                                            <tr>
-                                                <td style="width:35%">
-                                                    Rejected*
-                                                </td>
-                                                <td style="width:65%">
-                                                    <input type="tel" name="rejected" id="rejected" class="gui-input">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width:35%">
-                                                    Accepted*
-                                                </td>
-                                                <td style="width:65%">
-                                                    <input type="tel" name="accepted" id="accepted" class="gui-input">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">&nbsp;</td>
-                                            </tr>-->
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>-->
+                                         
                                         <tr>
                                             <td style="width:35%">
-                                                Rejected Reasons*
+                                                <label id="lblRejectedReason"></label>                                                
                                             </td>
                                             <td style="width:65%">
                                                 <select id="multiRejectedReasons" multiple="multiple"></select>
@@ -265,280 +202,10 @@
                                                 
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <td colspan="2">&nbsp;</td>
-                                        </tr>
-                                        <!--<tr class="rowMoisture">
-            <td style="width:35%">
-                Moisture
-            </td>
-            <td style="width:65%">
-                <input type="number" name="moisture" id="moisture" class="gui-input">
-            </td>
-        </tr>
-        <tr class="rowMoisture">
-            <td colspan="2">&nbsp;</td>
-        </tr>
-        <tr class="rowBaleLocation">
-            <td style="text-align:left">
-                Bale Locations*
-            </td>
-        </tr>
-        <tr class="rowBaleLocation">
-            <td colspan="2" style="width:100%">
-                <div style="width:inherit">
-                    <table border="1" style="width:100%; table-layout:fixed">
-                        <tbody>
-                            <tr>
-                                <td rowspan="6" class="tdNearSide" style="background-color:whitesmoke; width:10%; text-align:center"> Near Side</td>
-                                <td></td>
-                                <td style="text-align:center">A</td>
-                                <td style="text-align:center">B</td>
-                                <td style="text-align:center">C</td>
-                                <td>&nbsp;</td>
-                                <td style="text-align:center">D</td>
-                                <td style="text-align:center">E</td>
-                                <td style="text-align:center">F</td>
-                            </tr>
-                            <tr class="trBaleLayer5">
-                                <td> &nbsp;</td>
-                                <td class="tdBale" id="N5A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N5B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N5C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">5</td>
-                                <td class="tdBale" id="N5D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N5E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N5F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                            </tr>
-                            <tr class="trBaleLayer4">
-                                <td> &nbsp;</td>
-                                <td class="tdBale" id="N4A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N4B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N4C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">4</td>
-                                <td class="tdBale" id="N4D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N4E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N4F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="3" style="background-color:lightgrey; width:5%"> CAB </td>
-                                <td class="tdBale" id="N3A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N3B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N3C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">3</td>
-                                <td class="tdBale" id="N3D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N3E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N3F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tdBale" id="N2A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N2B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N2C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">2</td>
-                                <td class="tdBale" id="N2D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N2E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N2F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tdBale" id="N1A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N1B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N1C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">1</td>
-                                <td class="tdBale" id="N1D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N1E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="N1F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table border="1" style="width:100%; table-layout:fixed">
-                        <tbody>
-                            <tr>
-                                <td rowspan="6" class="tdOffSide" style="background-color:whitesmoke; width:10%; text-align:center"> Off Side</td>
-                                <td style="text-align:center">F</td>
-                                <td style="text-align:center">E</td>
-                                <td style="text-align:center">D</td>
-                                <td>&nbsp;</td>
-                                <td style="text-align:center">C</td>
-                                <td style="text-align:center">B</td>
-                                <td style="text-align:center">A</td>
-                                <td></td>
-                            </tr>
-
-                            <tr class="trBaleLayer5">
-                                <td class="tdBale" id="O5F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O5E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O5D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">5</td>
-                                <td class="tdBale" id="O5C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O5B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O5A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td rowspan="2"> &nbsp;</td>
-                            </tr>
-                            <tr class="trBaleLayer4">
-                                <td class="tdBale" id="O4F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O4E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O4D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">4</td>
-                                <td class="tdBale" id="O4C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O4B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O4A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tdBale" id="O3F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O3E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O3D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">3</td>
-                                <td class="tdBale" id="O3C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O3B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O3A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td rowspan="3" style="background-color:lightgrey; width:5%"> CAB </td>
-                            </tr>
-                            <tr>
-                                <td class="tdBale" id="O2F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O2E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O2D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">2</td>
-                                <td class="tdBale" id="O2C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O2B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O2A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tdBale" id="O1F">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O1E">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O1D">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td style="text-align:center; width:7%">1</td>
-                                <td class="tdBale" id="O1C">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O1B">
-                                    <input type="hidden" value="0" />
-                                </td>
-                                <td class="tdBale" id="O1A">
-                                    <input type="hidden" value="0" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">&nbsp;</td>
-        </tr>-->
+                                        </tr>-->
+                 
                                         <tr>
                                             <td style="text-align:left">
                                                 Comments
@@ -549,9 +216,9 @@
                                                 <textarea class="gui-textarea" id="comments" name="comments" placeholder="Enter comments"></textarea>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <td colspan="2">&nbsp;</td>
-                                        </tr>
+                                        </tr>-->
 
                                     </table>
 

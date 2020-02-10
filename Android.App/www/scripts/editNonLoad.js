@@ -43,7 +43,7 @@ function onDeviceReadyEdit() {
 var app = {
     nonLoadCameraOptions: function nonLoadCameraOptions() {
         var nlCameraOptions = {
-            quality: 65,
+            quality: 60,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.CAMERA,
             mediaType: Camera.MediaType.PICTURE,
@@ -57,7 +57,7 @@ var app = {
     },
     nonLoadPhotoLibraryOptions: function nonLoadPhotoLibraryOptions() {
         var nlCameraOptions = {
-            quality: 65,
+            quality: 60,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
             //sourceType: Camera.PictureSourceType.PHOTOLIBRARY,            
@@ -372,12 +372,14 @@ function fnFillNonLoadRejectionReasonData() {
         });
 
         if (_isMuliRejectionReason) {
+            $("#lblRejectedReason").text("Rejected Reasons");
             var rejectReasonSelect = $("#multiRejectedReasons");
             rejectReasonSelect.append(_rReasonOptions);
             rejectReasonSelect.selectmenu();
             rejectReasonSelect.selectmenu('refresh', true);
         }
         else {
+            $("#lblRejectedReason").text("Rejected Reason");
             var rejectReasonSelect = $("#rejectionReason");
             rejectReasonSelect.append(_rReasonOptions);
             rejectReasonSelect.selectmenu();

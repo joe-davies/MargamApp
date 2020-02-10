@@ -43,7 +43,7 @@ function onDeviceReadyEdit() {
 var app = {
     cameraOptions: function cameraOptions() {
         var cOptions = {
-            quality: 65,
+            quality: 60,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.CAMERA,
             mediaType: Camera.MediaType.PICTURE,
@@ -57,7 +57,7 @@ var app = {
     },
     photoLibraryOptions: function photoLibraryOptions() {
         var cOptions = {
-            quality: 65,
+            quality: 60,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
             //sourceType: Camera.PictureSourceType.PHOTOLIBRARY,            
@@ -219,7 +219,9 @@ var app = {
             _existingEdittedRecord.vrn = $("#regNo").val();
             //_existingEdittedRecord.subHaulier = $("#subHaulier").val();
            // _existingEdittedRecord.operator = $("#operatorName").val();
-            _existingEdittedRecord.note = $("#note").val();
+            //_existingEdittedRecord.note = $("#note").val();
+
+            _existingEdittedRecord.note = "";
             _existingEdittedRecord.rejComments = $("#comments").val();
             _existingEdittedRecord.image1 = $("#hfPic1").val();
             _existingEdittedRecord.image2 = $("#hfPic2").val();
@@ -377,12 +379,14 @@ function fnFillRejectionReasonData(oLoad) {
         });
 
         if (_isMuliRejectionReason) {
+            $("#lblRejectedReason").text("Rejected Reasons");
             var rejectReasonSelect = $("#multiRejectedReasons");
             rejectReasonSelect.append(_rReasonOptions);
             rejectReasonSelect.selectmenu();
             rejectReasonSelect.selectmenu('refresh', true);
         }
         else {
+            $("#lblRejectedReason").text("Rejected Reason");
             var rejectReasonSelect = $("#rejectionReason");
             rejectReasonSelect.append(_rReasonOptions);
             rejectReasonSelect.selectmenu();

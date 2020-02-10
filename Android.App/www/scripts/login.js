@@ -66,7 +66,7 @@ var storage = window.localStorage;
         }
 
         if (userId.length > 0 && password.length > 0) {
-            var uri = 'https://apitest.eco2cift.co.uk/api/Users/ValidateAndGetName?EmailId=' + userId + '&Password=' + password;
+            var uri = 'https://api.eco2cift.co.uk/api/Users/ValidateAndGetName?EmailId=' + userId + '&Password=' + password;
             var serviceUrl = encodeURI(uri);
 
             $.ajax({

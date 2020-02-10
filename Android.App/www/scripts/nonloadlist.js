@@ -301,7 +301,7 @@ var app_nonLoadEntryList = {
         window.plugins.spinnerDialog.show("Updating Data", "This will take a few moments - Please wait", true);
 
         var oLoadEntry = arrSelectedItem[arrIndex];
-        var url = 'https://apitest.eco2cift.co.uk/api/Settings/AddNonLoadEntry';
+        var url = 'https://api.eco2cift.co.uk/api/Settings/AddNonLoadEntry';
 
         var serviceUrl = encodeURI(url);
         var nLoadEntry = customLoadEntry;
@@ -436,7 +436,7 @@ var app_nonLoadEntryList = {
     validateSync: function validateSync(flowId) {
 
         try {
-            var url = "https://apitest.eco2cift.co.uk/api/Settings/ValidateFuelRejectionSync/" + flowId;
+            var url = "https://api.eco2cift.co.uk/api/Settings/ValidateFuelRejectionSync/" + flowId;
             var serviceUrl = encodeURI(url);
             var _token = window.localStorage.getItem('loadEntryUserDetails');
             var xhttp = new XMLHttpRequest();

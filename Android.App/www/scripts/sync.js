@@ -7,7 +7,7 @@
 
     fnManageLocalStorageKeys();
 
-    var url = 'https://apitest.eco2cift.co.uk/api/Settings/GetLoadRejectionDataByUserId?UserId=' + emailId;
+    var url = 'https://api.eco2cift.co.uk/api/Settings/GetLoadRejectionDataByUserId?UserId=' + emailId;
     var serviceUrl = encodeURI(url);
     var isDataSynced = false;
 
@@ -142,7 +142,7 @@ function syncNotifications() {
     var _encodedData = window.atob(_token);
     var userId = _encodedData.split('~')[0];
     
-    var url = 'https://apitest.eco2cift.co.uk/api/Settings/GetLoadRejectArchive/' + userId;
+    var url = 'https://api.eco2cift.co.uk/api/Settings/GetLoadRejectArchive/' + userId;
     var serviceUrl = encodeURI(url);
     var isDataSynced = false;
 

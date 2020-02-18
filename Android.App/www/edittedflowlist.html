@@ -40,6 +40,12 @@
             box-shadow: 0 5px #666;
             transform: translateY(4px);
         }
+
+        .action_btn {
+            display: inline-block;
+            width: calc(50% - 4px) !important;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
@@ -117,7 +123,8 @@
         </section>
         <!-- End: Content-Wrapper -->
         <div class="footer">
-            <button class="button btn btn-alert active" style="width:100%" id="btnNotify" >Notify And Sync Data</button>
+            <button class="button btn btn-alert action_btn active" style="width:100%" id="btnNotify">Notify And Sync Data</button>
+            <button class="button btn btn-danger action_btn" style="width:100%" id="btnDelete">Delete Data</button>
         </div>
 
     </div>

@@ -86,6 +86,7 @@
     <Content Include="bower.json" />
     <Content Include="build.json" />
     <Content Include="config.xml" />
+    <Content Include="res\icons\android\Logo.png" />
     <Content Include="www\cordova_plugins.js" />
     <Content Include="package.json" />
     <Content Include="plugins\android.json" />
@@ -683,6 +684,9 @@
     <Content Include="www\css\jquery.mobile-1.4.5.min.css" />
     <Content Include="www\dashboard.html" />
     <Content Include="www\editflow-old.html" />
+    <Content Include="www\images\Logo.jpg" />
+    <Content Include="www\images\Logo.png" />
+    <Content Include="www\images\newEco2.png" />
     <Content Include="www\nonload.html" />
     <Content Include="www\nonloadentrylist.html" />
     <Content Include="www\edittedflowlist.html" />

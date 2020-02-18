@@ -39,10 +39,10 @@ var app_edittedFlowList = {
                 ValidateFlow(validate_flow);
                 html = html + "<tr>";
                 if (validate_flow.isValidFlow == true) {
-                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.sampleID + "' name='sw_" + eData.sampleID + "' value='sw_" + eData.sampleID + "' class='cbx_dynamic'><span class='checkbox'></span></label></div></td>";
+                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.sampleID + "' name='sw_" + eData.sampleID + "' value='sw_" + eData.sampleID + "' class='cbx_dynamic' data-isSync = 'Yes'><span class='checkbox'></span></label></div></td>";
                 }
                 else {
-                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.sampleID + "' name='sw_" + eData.sampleID + "' value='sw_" + eData.sampleID + "' class='cbx_dynamic' disabled><span class='checkbox'></span></label></div></td>";
+                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.sampleID + "' name='sw_" + eData.sampleID + "' value='sw_" + eData.sampleID + "' class='cbx_dynamic' data-isSync = 'No'><span class='checkbox'></span></label></div></td>";
                 }
 
                 //html = html + "<td><div class='switch switch-info switch-inline'> <input id='sw_" + eData.sampleID + "' type='checkbox' class='cbx_dynamic'> <label class='rOption' for='sw_" + eData.sampleID + "'></label> </div></td>";
@@ -50,7 +50,7 @@ var app_edittedFlowList = {
                 html = html + "<td><span class='rating block mn pull-left'> " + eData.haulier + " </span></td>";
                 html = html + "<td>" + validate_flow.lblHtml + "</td>";
                 html = html + "<td class = 'tdView' id = 'cView_" + eData.sampleID + "'><i class='fa fa-eye'></i></td>";
-                html = html + "</tr>";
+
             });
         }
         else {
@@ -93,7 +93,44 @@ var app_edittedFlowList = {
             $("#lblNewBadge").text("0");
         }
     },
-    getFlowtoNotify: function getFlowtoNotify() {
+    UpdateFlow: function UpdateFlow() {
+        // debugger;
+
+        try {
+            window.plugins.spinnerDialog.show("Initializing", "Please wait", true);
+            var _selectredFlowIds = [];
+            var _checkboxes = document.getElementsByClassName('cbx_dynamic');
+            for (var i = 0; i < _checkboxes.length; i++) {
+                if (_checkboxes[i].type == 'checkbox' && _checkboxes[i].checked == true) {
+
+                    var _id = _checkboxes[i].id.split("_")[1];
+                    var isSync = _checkboxes[i].getAttribute("data-isSync");
+                    if (isSync == "No") {                        
+                        _selectredFlowIds = [];
+                        throw "Error: SampleID '" + _id + "' is incomplete. Can't sync data!";
+                    }
+                    else {
+                        _selectredFlowIds.push(_id);
+                    }
+                }
+            }
+            if (_selectredFlowIds.length > 0) {
+                window.plugins.spinnerDialog.show("Initializing Syncing", "Please wait", true);
+                app_edittedFlowList.InitializeFlowUpdate(_selectredFlowIds);
+            }
+            else {
+                throw "Please select any record(s)!";
+                //alert("Please select any record(s)!");
+                //window.plugins.spinnerDialog.hide();
+            }
+        } catch (e) {
+            alert(e);
+            window.plugins.spinnerDialog.hide();
+        }
+
+
+    },
+    DeleteFlow: function DeleteFlow() {
         // debugger;
 
         window.plugins.spinnerDialog.show("Initializing", "Please wait", true);
@@ -106,8 +143,11 @@ var app_edittedFlowList = {
             }
         }
         if (_selectredFlowIds.length > 0) {
-            window.plugins.spinnerDialog.show("Initializing Syncing", "Please wait", true);
-            app_edittedFlowList.InitializeFlowUpdate(_selectredFlowIds);
+            if (confirm("Are you sure you want to delete selected data?")) {
+                window.plugins.spinnerDialog.show("Deleting Data", "Please wait", true);
+                app_edittedFlowList.InitializeFlowDelete(_selectredFlowIds);
+                window.location.href = "edittedflowlist.html";
+            }
         }
         else {
             alert("Please select any record(s)!");
@@ -115,9 +155,9 @@ var app_edittedFlowList = {
         }
 
     },
-    InitializeFlowUpdate: function InitializeFlowUpdate(arr_flowIds) {
+    InitializeFlowUpdate: function InitializeFlowUpdate(arr_sampleIds) {
         // debugger;
-       // var _notifiedFlowData = [];
+        // var _notifiedFlowData = [];
         //var _flowDetailsFromEdittedList = {};
         //var isDataPostedOnTheServer = true;
 
@@ -125,9 +165,9 @@ var app_edittedFlowList = {
             var editedData = window.localStorage.getItem('editedLoadEntryData');
             var editedFloData = JSON.parse(editedData);
             var _selectedFlow = [];
-            $.each(arr_flowIds, function (i, eFlowId) {
+            $.each(arr_sampleIds, function (i, iSampleID) {
                 $.each(editedFloData, function (index, eData) {
-                    if (eData.sampleID == eFlowId) {
+                    if (eData.sampleID == iSampleID) {
                         _selectedFlow.push(eData);
                     }
                 });
@@ -140,83 +180,27 @@ var app_edittedFlowList = {
             alert(err);
             window.plugins.spinnerDialog.hide();
         }
-        
 
 
-        
-//        app_edittedFlowList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
 
-        //if (window.localStorage.hasOwnProperty('notifiedFlowData')) {
-        //    var notifiedData = window.localStorage.getItem('notifiedFlowData');
-        //    var notifiedFloData = JSON.parse(notifiedData);
+    },
+    InitializeFlowDelete: function InitializeFlowDelete(arr_sampleIds) {
+        // debugger;
 
-        //    // get edited flow data collection and find flow
-        //    var editedData = window.localStorage.getItem('editedLoadEntryData');
-        //    var editedFloData = JSON.parse(editedData);
+        try {
+            var editedData = window.localStorage.getItem('editedLoadEntryData');
+            var editedFloData = JSON.parse(editedData);
 
-        //    // get all selected flows and put them in the array
+            $.each(arr_sampleIds, function (i, iSampleID) {
+                app_edittedFlowList.removeFlowFromEdittedList(iSampleID);
+            });
 
-
-        //    // loop through notifiedFlowData and check weather existing records is in new array or not, if not exist then add them to array else do nothing and go to next record
-        //    //if (isDataPostedOnTheServer == true) {
-        //    //    $.each(notifiedFloData, function (_i, _existingNotifiedRecord) {
-        //    //        var _isexistInNewCollection = false;
-        //    //        $.each(_notifiedFlowData, function (i, nLoadEntry) {
-        //    //            if (nLoadEntry.sampleID == _existingNotifiedRecord.sampleID) {
-        //    //                _isexistInNewCollection = true;
-        //    //                return false;
-        //    //            }
-        //    //        });
-
-        //    //        if (_isexistInNewCollection == false) {
-        //    //            _notifiedFlowData.push(_existingNotifiedRecord);
-        //    //        }
-        //    //    });
-        //    //}
-        //}
-        //else {
-        //    var editedData = window.localStorage.getItem('editedLoadEntryData');
-        //    var editedFloData = JSON.parse(editedData);
-        //    var _selectedFlow = [];
-        //    $.each(arr_flowIds, function (i, eFlowId) {
-        //        $.each(editedFloData, function (index, eData) {
-        //            if (eData.sampleID == eFlowId) {
-        //                _selectedFlow.push(eData);
-        //            }
-        //        });
-        //  });
-
-
-        //    app_edittedFlowList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
-
-        //$.each(arr_flowIds, function (i, eFlowId) {
-        //    if (isDataPostedOnTheServer == true) {
-        //        $.each(editedFloData, function (index, eData) {
-        //            if (eData.sampleID == eFlowId) {
-
-        //            }
-        //        });
-        //    }
-        //});
-        // }
-
-
-        //var millisecondsToWait_UpdateRecord = 45000;
-        //setTimeout(function () {
-        //    if (isDataPostedOnTheServer == true) {
-        //        window.localStorage.setItem('notifiedFlowData', JSON.stringify(_notifiedFlowData));
-        //        window.plugins.spinnerDialog.hide();
-        //        alert("Synchronisation successful");
-        //        window.location.href = "notifiedflowlist.html";
-        //    }
-        //    else {
-        //        window.plugins.spinnerDialog.hide();
-        //        alert("Synchronisation unsuccessful - Please try again");
-        //        // alert("Please try again later!");
-        //        window.location.href = "dashboard.html";
-        //    }
-        //}, millisecondsToWait_UpdateRecord);
-
+        }
+        catch (err) {
+            alert("Error Occored!");
+            alert(err);
+            window.plugins.spinnerDialog.hide();
+        }
 
     },
     manageNotifiedList: function manageNotifiedList(updatedNotifyList) {
@@ -248,7 +232,7 @@ var app_edittedFlowList = {
         var editedFloData = JSON.parse(editedData);
 
         var updatedEditedFloData = [];
-        //$.each(fArr, function (i, eFlowId) {
+        //$.each(fArr, function (i, iSampleID) {
         $.each(editedFloData, function (index, eData) {
             if (eData.sampleID != e_flowId) {
                 updatedEditedFloData.push(eData);
@@ -310,23 +294,23 @@ var app_edittedFlowList = {
         nLoadEntry.sampleID = oLoadEntry.sampleID;
         nLoadEntry.appSheetUser = oLoadEntry.appSheetUser;
         nLoadEntry.ltNumber = oLoadEntry.ltNumber;
-        nLoadEntry.note = oLoadEntry.note;        
+        nLoadEntry.note = oLoadEntry.note;
         nLoadEntry.deliverDate = oLoadEntry.deliverDate;
         nLoadEntry.haulier = oLoadEntry.haulier;
         nLoadEntry.subHaulier = oLoadEntry.source;
         nLoadEntry.vrn = oLoadEntry.vrn;
-        nLoadEntry.operator = oLoadEntry.operator;         
+        nLoadEntry.operator = oLoadEntry.operator;
         nLoadEntry.rejReasons = oLoadEntry.rejReasons;
-         
+
         nLoadEntry.rejComments = oLoadEntry.rejComments;
-        
+
         nLoadEntry.image1 = oLoadEntry.image1;
         nLoadEntry.image2 = oLoadEntry.image2;
         nLoadEntry.image3 = oLoadEntry.image3;
         nLoadEntry.image4 = oLoadEntry.image4;
         nLoadEntry.image5 = oLoadEntry.image5;
         nLoadEntry.image6 = oLoadEntry.image6;
-        
+
         nLoadEntry.dateTimeStamp = oLoadEntry.dateTimeStamp;
 
         var base64Image1 = "";
@@ -339,13 +323,13 @@ var app_edittedFlowList = {
 
         if (nLoadEntry.image2 != null && nLoadEntry.image2.length > 0) {
             app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image2, function (base64Image2) {
-              //  window.plugins.spinnerDialog.show("Managing Data", "Image 2", true);
+                //  window.plugins.spinnerDialog.show("Managing Data", "Image 2", true);
                 nLoadEntry.image2Base64String = base64Image2.toString().split(',')[1];
             });
         }
         if (nLoadEntry.image3 != null && nLoadEntry.image3.length > 0) {
             app_edittedFlowList.getFileContentAsBase64(nLoadEntry.image3, function (base64Image3) {
-           //     window.plugins.spinnerDialog.show("Managing Data", "Image 3", true);
+                //     window.plugins.spinnerDialog.show("Managing Data", "Image 3", true);
                 nLoadEntry.image3Base64String = base64Image3.toString().split(',')[1];
             });
         }
@@ -369,7 +353,7 @@ var app_edittedFlowList = {
             });
         }
 
-      //  window.plugins.spinnerDialog.show("Checking Network Connection", "Plase wait", true);
+        //  window.plugins.spinnerDialog.show("Checking Network Connection", "Plase wait", true);
         //validate Network Connection During Process
         validateNetworkConnectionDuringProcess();
 
@@ -404,9 +388,9 @@ var app_edittedFlowList = {
                             }
                             else {
                                 // It means all records are synced now
-                               // app_edittedFlowList.manageNotifiedList(oNotifiedList);
+                                // app_edittedFlowList.manageNotifiedList(oNotifiedList);
                                 window.plugins.spinnerDialog.hide();
-                                alert("Synchronisation successful");                                
+                                alert("Synchronisation successful");
                                 window.location.href = "notifiedflowlist.html";
                             }
                         }
@@ -506,7 +490,7 @@ $(document).ready(function () {
 
     $("#newAnchor").on("click", function (e) {
         window.location.href = "nonloadentrylist.html";
-    });    
+    });
 
     $("#editedAnchor").on("click", function (e) {
         window.location.href = "edittedflowlist.html";
@@ -517,13 +501,30 @@ $(document).ready(function () {
     });
 
     $('#btnNotify').on("click", function () {
-        app_edittedFlowList.getFlowtoNotify()
+        app_edittedFlowList.UpdateFlow();
+    });
+
+    $('#btnDelete').on("click", function () {
+        app_edittedFlowList.DeleteFlow();
     });
 
     $("#tbl_edittedflow").on("click", ".tdView", function () {
         window.plugins.spinnerDialog.show("View Flow", "Getting Info...", true);
         var _flowId = this.id.split("_")[1];
         app_edittedFlowList.viewFlowInfo(_flowId);
+    });
+
+    $("#tbl_edittedflow").on("click", ".tdDelete", function () {
+
+        if (confirm("Are you sure you want to delete selected data?")) {
+            window.plugins.spinnerDialog.show("View Flow", "Getting Info...", true);
+            var _flowId = this.id.split("_")[1];
+            app_edittedFlowList.removeFlowFromEdittedList(_flowId);
+            window.plugins.spinnerDialog.hide();
+            window.location.href = "edittedflowlist.html";
+        }
+
+
     });
 });
 

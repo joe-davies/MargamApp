@@ -37,14 +37,15 @@ var app_nonLoadEntryList = {
                 validate_flow.lblHtml = "";
 
                 ValidateFlow(validate_flow);
-                html = html + "<tr>";
+                html = html + "<tr>";                
                 if (validate_flow.isValidFlow == true) {
-                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.id + "' name='sw_" + index + "' value='sw_" + index + "' class='cbx_dynamic'><span class='checkbox'></span></label></div></td>";
+                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.id + "' name='sw_" + index + "' value='sw_" + index + "' class='cbx_dynamic' data-isSync = 'Yes'><span class='checkbox'></span></label></div></td>";
                 }
                 else {
-                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.id + "' name='sw_" + index + "' value='sw_" + index + "' class='cbx_dynamic' disabled><span class='checkbox'></span></label></div></td>";
+                    html = html + "<td><div class='option-group field'><label class='option option-primary'><input type='checkbox' id='sw_" + eData.id + "' name='sw_" + index + "' value='sw_" + index + "' class='cbx_dynamic' data-isSync = 'No'><span class='checkbox'></span></label></div></td>";
                 }
 
+                html = html + "<td><span class='rating block mn pull-left'> " + eData.id + " </span></td>";
                 //html = html + "<td><div class='switch switch-info switch-inline'> <input id='sw_" + eData.sampleID + "' type='checkbox' class='cbx_dynamic'> <label class='rOption' for='sw_" + eData.sampleID + "'></label> </div></td>";
                 html = html + "<td><span class='rating block mn pull-left'> " + eData.operator + " </span></td>";
                 //html = html + "<td><span class='rating block mn pull-left'> " + eData.rejReasons + " </span></td>";
@@ -93,10 +94,46 @@ var app_nonLoadEntryList = {
             $("#lblNewBadge").text("0");
         }
     },
-    getFlowtoNotify: function getFlowtoNotify() {
+    InsertNonLoad: function InsertNonLoad() {
         // debugger;
 
-        window.plugins.spinnerDialog.show("Initializing", "Please wait", true);
+        try {
+            window.plugins.spinnerDialog.show("Initializing", "Please wait", true);
+            var _selectredFlowIds = [];
+            var _checkboxes = document.getElementsByClassName('cbx_dynamic');
+            for (var i = 0; i < _checkboxes.length; i++) {
+                if (_checkboxes[i].type == 'checkbox' && _checkboxes[i].checked == true) {
+                    var _id = _checkboxes[i].id.split("_")[1];
+
+                    var isSync = _checkboxes[i].getAttribute("data-isSync");
+                    if (isSync == "No") {
+                        _selectredFlowIds = [];
+                        throw "Error: Record '" + _id + "' is incomplete. Can't sync data!";
+                    }
+                    else {
+                        _selectredFlowIds.push(_id);
+                    }
+                }
+            }
+            if (_selectredFlowIds.length > 0) {
+                window.plugins.spinnerDialog.show("Initializing  Non-Load Insert", "Please wait", true);
+                app_nonLoadEntryList.InitializeNonFlowInsert(_selectredFlowIds);
+            }
+            else {
+                throw "Please select any record(s)!";
+
+            }
+        } catch (e) {
+            alert(e);
+            window.plugins.spinnerDialog.hide();
+        }
+
+
+    },
+    DeleteNonLoad: function DeleteNonLoad() {
+        // debugger;
+
+        //window.plugins.spinnerDialog.show("Initializing", "Please wait", true);
         var _selectredFlowIds = [];
         var _checkboxes = document.getElementsByClassName('cbx_dynamic');
         for (var i = 0; i < _checkboxes.length; i++) {
@@ -106,8 +143,11 @@ var app_nonLoadEntryList = {
             }
         }
         if (_selectredFlowIds.length > 0) {
-            window.plugins.spinnerDialog.show("Initializing  Non-Load Insert", "Please wait", true);
-            app_nonLoadEntryList.InitializeFlowUpdate(_selectredFlowIds);
+            if (confirm("Are you sure you want to delete selected data?")) {
+                window.plugins.spinnerDialog.show("Initializing  Non-Load Insert", "Please wait", true);
+                app_nonLoadEntryList.InitializeNonFlowDelete(_selectredFlowIds);
+                window.location.href = "nonloadentrylist.html";
+            }
         }
         else {
             alert("Please select any record(s)!");
@@ -115,7 +155,7 @@ var app_nonLoadEntryList = {
         }
 
     },
-    InitializeFlowUpdate: function InitializeFlowUpdate(arr_flowIds) {
+    InitializeNonFlowInsert: function InitializeNonFlowInsert(arr_NonLoadIds) {
         // debugger;
         // var _notifiedFlowData = [];
         //var _flowDetailsFromEdittedList = {};
@@ -125,7 +165,7 @@ var app_nonLoadEntryList = {
             var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
             var nonLoadEntries = JSON.parse(nonLoadData);
             var _selectedFlow = [];
-            $.each(arr_flowIds, function (i, e_id) {
+            $.each(arr_NonLoadIds, function (i, e_id) {
                 $.each(nonLoadEntries, function (index, eData) {
                     if (eData.id == e_id) {
                         _selectedFlow.push(eData);
@@ -141,106 +181,29 @@ var app_nonLoadEntryList = {
             alert(err);
             window.plugins.spinnerDialog.hide();
         }
-        
-        //        app_nonLoadEntryList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
-
-        //if (window.localStorage.hasOwnProperty('notifiedFlowData')) {
-        //    var notifiedData = window.localStorage.getItem('notifiedFlowData');
-        //    var notifiedFloData = JSON.parse(notifiedData);
-
-        //    // get edited flow data collection and find flow
-        //    var nonLoadData = window.localStorage.getItem('editedLoadEntryData');
-        //    var nonLoadEntries = JSON.parse(nonLoadData);
-
-        //    // get all selected flows and put them in the array
-
-
-        //    // loop through notifiedFlowData and check weather existing records is in new array or not, if not exist then add them to array else do nothing and go to next record
-        //    //if (isDataPostedOnTheServer == true) {
-        //    //    $.each(notifiedFloData, function (_i, _existingNotifiedRecord) {
-        //    //        var _isexistInNewCollection = false;
-        //    //        $.each(_notifiedFlowData, function (i, nLoadEntry) {
-        //    //            if (nLoadEntry.sampleID == _existingNotifiedRecord.sampleID) {
-        //    //                _isexistInNewCollection = true;
-        //    //                return false;
-        //    //            }
-        //    //        });
-
-        //    //        if (_isexistInNewCollection == false) {
-        //    //            _notifiedFlowData.push(_existingNotifiedRecord);
-        //    //        }
-        //    //    });
-        //    //}
-        //}
-        //else {
-        //    var nonLoadData = window.localStorage.getItem('editedLoadEntryData');
-        //    var nonLoadEntries = JSON.parse(nonLoadData);
-        //    var _selectedFlow = [];
-        //    $.each(arr_flowIds, function (i, eFlowId) {
-        //        $.each(nonLoadEntries, function (index, eData) {
-        //            if (eData.sampleID == eFlowId) {
-        //                _selectedFlow.push(eData);
-        //            }
-        //        });
-        //  });
-
-
-        //    app_nonLoadEntryList.updateFuelFlowToCloudServer(_selectedFlow, 0, _notifiedFlowData);
-
-        //$.each(arr_flowIds, function (i, eFlowId) {
-        //    if (isDataPostedOnTheServer == true) {
-        //        $.each(nonLoadEntries, function (index, eData) {
-        //            if (eData.sampleID == eFlowId) {
-
-        //            }
-        //        });
-        //    }
-        //});
-        // }
-
-
-        //var millisecondsToWait_UpdateRecord = 45000;
-        //setTimeout(function () {
-        //    if (isDataPostedOnTheServer == true) {
-        //        window.localStorage.setItem('notifiedFlowData', JSON.stringify(_notifiedFlowData));
-        //        window.plugins.spinnerDialog.hide();
-        //        alert("Synchronisation successful");
-        //        window.location.href = "notifiedflowlist.html";
-        //    }
-        //    else {
-        //        window.plugins.spinnerDialog.hide();
-        //        alert("Synchronisation unsuccessful - Please try again");
-        //        // alert("Please try again later!");
-        //        window.location.href = "dashboard.html";
-        //    }
-        //}, millisecondsToWait_UpdateRecord);
-
 
     },
-    //manageNotifiedList: function manageNotifiedList(updatedNotifyList) {
-    //    if (window.localStorage.hasOwnProperty('notifiedLoadFlowData')) {
-    //        var arrNotifyList = [];
-    //        var notifiedData = window.localStorage.getItem('notifiedLoadFlowData');
-    //        var notifiedFloData = JSON.parse(notifiedData);
 
-    //        ////  loop through notifiedFlowData and check weather existing records is in new array or not, if not exist then add them to array else do nothing and go to next record
-    //        $.each(notifiedFloData, function (_i, _existingNotifiedRecord) {
-    //            var _isexistInNewCollection = false;
-    //            $.each(updatedNotifyList, function (i, _newNotifiedRecord) {
-    //                if (_newNotifiedRecord.sampleID == _existingNotifiedRecord.sampleID) {
-    //                    arrNotifyList.push(_newNotifiedRecord);
-    //                }
-    //                else {
-    //                    arrNotifyList.push(_existingNotifiedRecord);
-    //                }
-    //            });
-    //        });
-    //        window.localStorage.setItem('notifiedLoadFlowData', JSON.stringify(arrNotifyList));
-    //    }
-    //    else {
-    //        window.localStorage.setItem('notifiedLoadFlowData', JSON.stringify(updatedNotifyList));
-    //    }
-    //},
+    InitializeNonFlowDelete: function InitializeNonFlowDelete(arr_NonLoadIds) {
+        // debugger; 
+
+        try {
+            var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
+            var nonLoadEntries = JSON.parse(nonLoadData);
+
+            $.each(arr_NonLoadIds, function (i, e_id) {
+                app_nonLoadEntryList.removeFlowFromNonLoadData(e_id);
+            });
+
+        }
+        catch (err) {
+            alert("Error Occored!");
+            alert(err);
+            window.plugins.spinnerDialog.hide();
+        }
+
+    },
+
     removeFlowFromNonLoadData: function removeFlowFromNonLoadData(e_id) {
         var nonLoadData = window.localStorage.getItem('nonLoadEntryData');
         var nonLoadEntries = JSON.parse(nonLoadData);
@@ -329,7 +292,7 @@ var app_nonLoadEntryList = {
         var nl_base64Image1 = "";
         if (nLoadEntry.image1 != null && nLoadEntry.image1.length > 0) {
             app_nonLoadEntryList.getFileContentAsbase64(nLoadEntry.image1, function (nl_base64Image1) {
-                nLoadEntry.image1base64String = nl_base64Image1.toString().split(',')[1];                
+                nLoadEntry.image1base64String = nl_base64Image1.toString().split(',')[1];
             });
         }
 
@@ -363,11 +326,11 @@ var app_nonLoadEntryList = {
             });
         }
 
-       // window.plugins.spinnerDialog.show("Checking Network Connection", "Plase wait", true);
+        // window.plugins.spinnerDialog.show("Checking Network Connection", "Plase wait", true);
         //validate Network Connection During Process
         validateNetworkConnectionDuringProcess();
 
-        
+
         var millisecondsToWait_UploadImage = 6000;
         setTimeout(function () {
             try {
@@ -382,12 +345,12 @@ var app_nonLoadEntryList = {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
 
-                           // app_nonLoadEntryList.validateSync(nLoadEntry.sampleID);
+                            // app_nonLoadEntryList.validateSync(nLoadEntry.sampleID);
                             var _lastSynced = new Date().toLocaleString('en-GB');
                             nLoadEntry.dateTimeStamp = _lastSynced;
                             app_nonLoadEntryList.removeFlowFromNonLoadData(oLoadEntry.id);
                             //oNotifiedList.push(nLoadEntry);
-                           // window.localStorage.setItem('lastSyncedDate_LoadRejection', _lastSynced.toString());
+                            // window.localStorage.setItem('lastSyncedDate_LoadRejection', _lastSynced.toString());
 
                             // check ifis there any new record in the selected array then process it.
                             if (arrIndex < (arrSelectedItem.length - 1)) {
@@ -512,7 +475,11 @@ $(document).ready(function () {
     });
 
     $('#btnInsert').on("click", function () {
-        app_nonLoadEntryList.getFlowtoNotify()
+        app_nonLoadEntryList.InsertNonLoad();
+    });
+
+    $('#btnDelete').on("click", function () {
+        app_nonLoadEntryList.DeleteNonLoad();
     });
 
     $("#tbl_nonloadflow").on("click", ".tdView", function () {

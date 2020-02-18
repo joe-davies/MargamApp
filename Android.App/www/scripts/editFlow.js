@@ -340,7 +340,11 @@ function fnFillRejectionReasonData(oLoad) {
     var _rejectionReasons = window.localStorage.getItem('loadRejectionReasonData');
     if (_rejectionReasons.length > 0) {
         var rejectionReasonData = JSON.parse(_rejectionReasons);
-        var _rReasonOptions = "<option value='-1'>Select Reason</option>";
+        var _rReasonOptions = "";
+        if (!_isMuliRejectionReason) {
+            _rReasonOptions = "<option value='-1'>Select Reason</option>"
+        }
+
         $.each(rejectionReasonData, function (index, _rejectionReason) {
 
             /// For Editing we only check for "Load" Fuel Group Reection Reasons as per the logged in user 
@@ -351,16 +355,7 @@ function fnFillRejectionReasonData(oLoad) {
                     $.each(_existingRejectReasons, function (ind, _eRejectReason) {
                         if (_eRejectReason.replace(/\s/g, '') == _rejectionReason.rejectReason.replace(/\s/g, '')) {
                             _isRejectReasonMatched = true;
-                            /// Task #22
-                            ///A manual moisture is required only if a rejection reason contains the words 'Moisture - High'                            
-                            //var _rejReason = _eRejectReason.replace(/\s/g, '');
-                            //if (_rejReason.indexOf('-') > -1) {
-                            //    var fEle = _rejReason.split('-')[0];
-                            //    if (fEle == "Moisture") {
-                            //        $('.rowMoisture').show();
-                            //    }
-                            //}
-                            /// Task #22 end
+                             
                             return false;
                         }
                     });

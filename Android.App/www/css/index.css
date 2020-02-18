@@ -32,14 +32,14 @@ body {
 }
 
 .app {
-    background: url(../images/eco2.png) no-repeat center top; 
-    position: absolute;             
+    background: url(../images/newEco2.png) no-repeat center top;
+    position: absolute;
     left: 50%;
     top: 50%;
-    height: 50px;                  
-    width: 225px;                   
+    height: 50px;
+    width: 225px;
     text-align: center;
-    padding: 180px 0px 0px 0px;     
+    padding: 180px 0px 0px 0px;
     margin: -115px 0px 0px -112px;
 }
 
